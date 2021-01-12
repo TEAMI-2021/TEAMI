@@ -24,7 +24,7 @@ public class JDBCTests {
 	public void testConnection() {
 		try(Connection con =
 				DriverManager.getConnection(
-						"jdbc:mariadb://localhost:3306",
+						"jdbc:mariadb://localhost:3306/teami",
 						"teami",
 						"teami2021")){
 			log.info(con);

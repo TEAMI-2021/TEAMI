@@ -18,19 +18,24 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
+	<mybatis-spring:scan base-package="org.teami.mapper"/>
+	
+	
 	<!-- HikariCP -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"
 		value="org.mariadb.jdbc.Driver"></property>
 		<property name="jdbcUrl"
-		value="jdbc:mariadb://localhost:3306"></property>
+		value="jdbc:mariadb://localhost:3306/teami"></property>
 		<property name="username" value="teami"></property>
 		<property name="password" value="teami2021"></property>
 	</bean>
 	
-	<!-- HikariCP configuration -->
+	<!-- HikariCP configuration --> 
+	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 	destroy-method="close">
 		<constructor-arg ref="hikariConfig"/>
 	</bean>
+	
 </beans>
