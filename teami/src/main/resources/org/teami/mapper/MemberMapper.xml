@@ -26,4 +26,14 @@
 			user_table mem LEFT OUTER JOIN user_auth auth on mem.user_id=auth.user_id
 		WHERE mem.user_id=#{user_id}
 	</select>
+	
+	<insert id="insert">
+		insert into user_table(user_id, user_pw, user_name)
+		values(#{user_id}, #{user_pw}, #{user_name})
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into user_auth(user_id, auth)
+		values(#{user_id}, #{auth})
+	</insert>
 </mapper>

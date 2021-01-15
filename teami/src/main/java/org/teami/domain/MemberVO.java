@@ -12,6 +12,8 @@ public class MemberVO {
 	private String user_name;
 	private boolean enabled;
 	
-	private List<AuthVO> authList;
+	private String auth;
+	
+//	private List<AuthVO> authList;
 	
 }

@@ -5,27 +5,29 @@
 
 <html>
 <head>
-	<link href="resources/css/home.css" rel="stylesheet">
+	<link href="/resources/css/home.css" rel="stylesheet">
 	<title>JoinIn</title>
 </head>
 <body>
 		<div class="centered">
 		<div class="centered2">
-		    <form class="form">
+		    <form role="form" action="/joinIn" method="post">
 		    <br/>
 				<h2>T E A M I</h2> <br/>
 				<table>
 					<tr>
-						<td>NAME </td> <td> <input name="name"></input></td>
+						<td>NAME </td> <td> <input name="user_name" class="form-control"></input></td>
 					</tr>
 					<tr>
-			        	<td>ID </td> <td> <input name="id"></input></td>
+			        	<td>ID </td> <td> <input name="user_id" class="form-control"></input></td>
 			        </tr>
 			        <tr>
-			        	<td>PW </td> <td> <input type="password" name="pw"></input></td>
+			        	<td>PW </td> <td> <input type="password" name="user_pw" class="form-control"></input></td>
 			        </tr>
 		        </table><br/>
-		        <input type="submit" value="JoinIn" id="submitB"></input><br/> <br/><br/>
+		        <input type="submit" value="JoinIn" class="btn btn-default"></input><br/> <br/><br/>
+		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
+		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    </form>
 		</div>
 		</div>   

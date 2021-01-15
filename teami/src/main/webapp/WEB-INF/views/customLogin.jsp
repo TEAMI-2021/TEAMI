@@ -25,7 +25,7 @@
 		        <input type="submit" value="login"></input>
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    </form>
-		    ID가 없으신가요? <button onclick="location='joinIn'">회원가입</button><br/><br/>
+		    ID가 없으신가요? <button onclick="location='/joinIn'">회원가입</button><br/><br/>
 		</div>
 		</div>   
 </body>

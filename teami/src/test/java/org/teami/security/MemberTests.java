@@ -2,6 +2,8 @@ package org.teami.security;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -10,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.teami.domain.AuthVO;
+import org.teami.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Setter;
@@ -30,6 +34,7 @@ public class MemberTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private DataSource ds;
+	
 	
 	@Test
 	public void testInsertMember() {
