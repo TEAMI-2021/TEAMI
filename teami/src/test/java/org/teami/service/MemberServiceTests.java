@@ -42,8 +42,9 @@ public class MemberServiceTests {
 	@Test
 	public void testRegister(){
 		
-		ArrayList<AuthVO>auth = new ArrayList<>();
-		auth.add(new AuthVO("user2", "ROLE_MEMBER"));
+		AuthVO auth = new AuthVO();
+		auth.setUser_id("user6");
+		auth.setAuth("ROLE_MEMBER");
 		
 		MemberVO member = new MemberVO();
 		member.setUser_id("user6");
