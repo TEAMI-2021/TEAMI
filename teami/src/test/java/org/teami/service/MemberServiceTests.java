@@ -47,9 +47,9 @@ public class MemberServiceTests {
 		auth.setAuth("ROLE_MEMBER");
 		
 		MemberVO member = new MemberVO();
-		member.setUser_id("user6");
-		member.setUser_pw("pw6");
-		member.setUser_name("사용자6");
+		member.setUser_id("user7");
+		member.setUser_pw("pw7");
+		member.setUser_name("사용자7");
 		member.setAuth("ROLE_MEMBER");
 		//member.setAuthList(auth);
 		
