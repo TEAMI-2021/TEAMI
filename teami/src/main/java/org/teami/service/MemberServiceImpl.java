@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberVO get(String user_id) {
-		return null;
+		return mapper.read(user_id);
 	}
 	
 	

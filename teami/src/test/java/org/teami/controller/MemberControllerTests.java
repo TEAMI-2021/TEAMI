@@ -1,4 +1,4 @@
-package com.teami.controller;
+package org.teami.controller;
 
 import org.junit.Before;
 import org.junit.Test;

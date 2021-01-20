@@ -23,8 +23,7 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public RoomVO get(String room_code) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(room_code);
 	}
 
 }
