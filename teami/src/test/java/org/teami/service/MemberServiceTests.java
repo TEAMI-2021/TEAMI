@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.teami.domain.AuthVO;
 import org.teami.domain.MemberVO;
+import org.teami.domain.RoomVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -56,6 +57,15 @@ public class MemberServiceTests {
 		service.joinIn(member);
 		
 		log.info("멤버등록");
+	}
+	
+	@Test
+	public void testGet() {
+		
+		MemberVO vo = service.get("test123");
+		
+		log.info(vo);
+		vo.getAuthList().forEach(RoomMemberVO -> log.info(RoomMemberVO));
 	}
 	
 }

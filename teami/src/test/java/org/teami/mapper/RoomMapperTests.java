@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.teami.domain.MemberVO;
 import org.teami.domain.RoomMemberVO;
 import org.teami.domain.RoomVO;
 
@@ -39,6 +40,16 @@ public class RoomMapperTests {
 		mapper.insertRoomMember(room);
 		//member.getAuthList().forEach(authVO -> mapper.insert_auth(authVO));
 	
+	}
+	
+	@Test
+	public void testRead() {
+		
+		RoomVO vo = mapper.read("1234");
+		
+		log.info(vo);
+		vo.getRoomMemberList().forEach(RoomMemberVO -> log.info(RoomMemberVO));
+		
 	}
 	
 }

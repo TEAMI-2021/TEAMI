@@ -20,7 +20,7 @@
 	
 	<select id="read" resultMap="RoomMap">
 		SELECT
-			room.room_code, room_name, user_name, enabled, auth
+			room.room_code, room_name, user_id
 		FROM
 			room_table room LEFT OUTER JOIN room_member_table rmt on room.room_code = rmt.room_code
 		WHERE room.room_code=#{room_code}

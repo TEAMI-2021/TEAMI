@@ -34,4 +34,14 @@ public class RoomServiceTests {
 		
 		log.info("방등록");
 	}
+	
+	@Test
+	public void testRead() {
+		
+		RoomVO vo = service.get("1234");
+		
+		log.info(vo);
+		vo.getRoomMemberList().forEach(RoomMemberVO -> log.info(RoomMemberVO));
+		
+	}
 }
