@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.teami.mapper.BoardMapper">
+
+	<select id="getList" resultType="org.teami.domain.BoardVO">
+	<![CDATA[
+	select * from tbl_board where bno > 0
+	]]>
+	</select>	
+	
+	<insert id="insert">
+		insert into tbl_board (title, content, writer)
+		values (#{title}, #{content}, #{writer})
+	</insert>
+<!--  
+	bno를 null 값으로 넣는 법?
+	INFO : org.teami.mapper.BoardMapperTests 
+	- BoardVO(bno=0, title=새 제목, content=새 내용, writer=newbie, regdate=null, updatedate=null)
+-->	
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+<!--  			SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'tbl_board' AND table_schema = DATABASE() -->
+			SELECT MAX(bno)+1 FROM tbl_board 
+		</selectKey>
+		insert into tbl_board (bno, title, content, writer)
+		values (#{bno}, #{title}, #{content}, #{writer})
+	</insert>	
+<!-- 
+	INFO : org.teami.mapper.BoardMapperTests - 
+	BoardVO(bno=24, title=새 제목 select key, content=새 내용 select key, writer=newbie, regdate=null, updatedate=null)
+ -->
+ 
+	<select id="read" resultType="org.teami.domain.BoardVO">
+		select * from tbl_board where bno = #{bno}
+	</select>	
+	
+	<delete id="delete">
+		delete from tbl_board where bno = #{bno}
+	</delete>
+	
+	<update id="update">
+		update tbl_board set title=#{title}, content=#{content}, writer=#{writer}, 
+		updatedate = NOW() where bno = #{bno}
+	</update>
+	
+	<select id="getListWithPaging" resultType="org.teami.domain.BoardVO">
+		<![CDATA[
+			select bno, title, content, writer, regdate, updatedate
+			FROM tbl_board
+			ORDER BY bno DESC
+			LIMIT #{amount} OFFSET #{startList}
+		]]>
+	</select>
+	
+</mapper>
