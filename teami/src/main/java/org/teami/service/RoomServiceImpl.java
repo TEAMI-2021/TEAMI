@@ -1,6 +1,7 @@
 package org.teami.service;
 
 import org.springframework.stereotype.Service;
+import org.teami.domain.RoomMemberVO;
 import org.teami.domain.RoomVO;
 import org.teami.mapper.RoomMapper;
 
@@ -26,4 +27,10 @@ public class RoomServiceImpl implements RoomService{
 		return mapper.read(room_code);
 	}
 
+	@Override
+	public void addMember(RoomMemberVO roomMember) {
+		mapper.insertRoomMember(roomMember);
+	}
+
+	
 }
