@@ -23,28 +23,29 @@ import lombok.extern.log4j.Log4j;
 	"file:src/main/webapp/WEB-INF/spring/security-context.xml"
 })
 @Log4j
-public class MemberControllerTests {
+public class RoomControllerTests {
 	
 	@Setter(onMethod_= {@Autowired})
 	private WebApplicationContext ctx;
 	
 	private MockMvc mockMvc;
 	
-	
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
+	
 	@Test
-	public void testJoinIn()throws Exception{
+	public void testNewRoom()throws Exception{
 		
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/joinIn")
-				.param("user_id", "test1")
-				.param("user_pw", "test1")
-				.param("user_name", "테스트1")
-				.param("auth", "ROLE_MEMBER")
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/room/newRoom")
+				.param("room_code", "1005")
+				.param("room_name", "test23")
+				.param("user_id", "test123")
 				).andReturn().getModelAndView().getViewName();
 				
 		log.info(resultPage);
 	}
+
 }

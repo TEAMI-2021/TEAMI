@@ -15,7 +15,7 @@
 	<security:intercept-url pattern="/login/all" access="permitAll"/>
 	
 	<security:intercept-url pattern="/" access="hasRole('ROLE_MEMBER')"/>
-	
+	<security:intercept-url pattern="/room/*" access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/login/admin" access="hasRole('ROLE_ADMIN')"/>
 	
 	<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>

@@ -25,7 +25,7 @@ public class RoomServiceTests {
 	public void testRegister(){
 		
 		RoomVO room = new RoomVO();
-		room.setRoom_code("1234");
+		room.setRoom_code("3456");
 		room.setRoom_name("test1234");
 		room.setUser_id("user7");
 		//member.setAuthList(auth);
