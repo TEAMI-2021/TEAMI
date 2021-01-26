@@ -35,4 +35,8 @@
 		insert into room_member_table(room_code, user_id)
 		values(#{room_code}, #{user_id})
 	</insert>
+	
+	<select id="roomChk" resultType="int">
+		SELECT count(*) FROM room_table WHERE room_code=#{user_code}
+	</select>
 </mapper>

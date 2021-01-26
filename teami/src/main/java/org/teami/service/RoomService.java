@@ -9,4 +9,6 @@ public interface RoomService {
 	public RoomVO get(String room_code);
 	
 	public void addMember(RoomMemberVO roomMember);
+	
+	public int roomChk(String room_code);
 }

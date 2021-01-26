@@ -32,5 +32,10 @@ public class RoomServiceImpl implements RoomService{
 		mapper.insertRoomMember(roomMember);
 	}
 
+	@Override
+	public int roomChk(String room_code) {
+		return mapper.roomChk(room_code);
+	}
+
 	
 }

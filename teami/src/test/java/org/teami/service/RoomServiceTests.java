@@ -54,4 +54,10 @@ public class RoomServiceTests {
 		
 		service.addMember(roomMember);
 	}
+	
+	@Test
+	public void testRoomChk() {
+		int i = service.roomChk("0987");
+		log.info("방코드체크:"+i);
+	}
 }

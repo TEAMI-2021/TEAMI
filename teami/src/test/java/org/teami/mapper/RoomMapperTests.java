@@ -60,4 +60,13 @@ public class RoomMapperTests {
 		mapper.insertRoomMember(roomMember);
 	}
 	
+	@Test
+	public void testRoomChk() {
+		
+		int i = mapper.roomChk("1234");
+		
+		log.info(i);
+		
+	}
+	
 }

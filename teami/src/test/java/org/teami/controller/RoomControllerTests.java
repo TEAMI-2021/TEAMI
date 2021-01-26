@@ -47,5 +47,16 @@ public class RoomControllerTests {
 				
 		log.info(resultPage);
 	}
+	
+	@Test
+	public void testFindRoom() throws Exception{
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/room/findRoom")
+				.param("room_code", "7890")
+				.param("user_id", "test123")
+				).andReturn().getModelAndView().getViewName();
+				
+		log.info(resultPage);
+	}
 
 }

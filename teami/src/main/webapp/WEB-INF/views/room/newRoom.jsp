@@ -10,11 +10,7 @@
 	<title>NewRoom</title>
 </head>
 <body>
-	<% 
-		int max = 1000;
-		// 임의로 3자리 정수로 방 코드 잡아 놓음, 중복 방지 작업은 아직 안함
-		String roomcode = String.format("%03d",(int)(Math.random() * max)); // 0 ~ max-1 까지의 정수 값을 생성 
-	%>
+	<!-- 방코드 임의 코드 및 중복방지 처리 자바에서 처리 완료 -->
 		<div class="centered">
 		<div class="centered2">
 		    <form class="form" action="/room/newRoom" method="post">
@@ -25,7 +21,7 @@
 						<td>방 이름 </td> <td> <input name="room_name"></input></td>
 					</tr>
 					<tr>
-			        	<td>방 코드 </td> <td> <input type="text" name="room_code" value=<%=roomcode%> readonly></input></td>
+			        	<td>방 코드 </td> <td> <input type="text" name="room_code" value="${room_code }" readonly></input></td>
 			        </tr>
 			    </table>
 			    <br/>

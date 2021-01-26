@@ -12,4 +12,6 @@ public interface RoomMapper {
 	public void insertRoomMember(RoomVO room);
 	
 	public void insertRoomMember(RoomMemberVO roomMember);
+	
+	public int roomChk(String room_code);
 }
