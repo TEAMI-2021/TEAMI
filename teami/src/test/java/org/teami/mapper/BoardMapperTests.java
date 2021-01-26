@@ -61,12 +61,12 @@ public class BoardMapperTests {
 //		
 //		log.info(board);
 //	}
-	
-	@Test
-	public void testDelete() {
-		
-		log.info("DELETE COUNT: " + mapper.delete(5L));
-	}
+//	
+//	@Test
+//	public void testDelete() {
+//		
+//		log.info("DELETE COUNT: " + mapper.delete(5L));
+//	}
 //	
 //	@Test
 //	public void testUpdate() {
@@ -87,11 +87,23 @@ public class BoardMapperTests {
 //	public void testPaging() {
 //		
 //		Criteria cri = new Criteria();
-//		cri.setStartList((4-1)*10);
+//		cri.setPageNum(1);
 //		cri.setAmount(10);
 //		
 //		List<BoardVO> list = mapper.getListWithPaging(cri);
 //		
 //		list.forEach(board -> log.info(board.getBno()));
 //	}
+
+	@Test
+	public void testSearch() {
+		
+		Criteria cri = new Criteria();
+		cri.setKeyword("4");
+		cri.setType("TC");;
+		
+		List<BoardVO> list = mapper.getSearch(cri);
+		
+		list.forEach(board -> log.info(board));
+	}
 }

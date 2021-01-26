@@ -24,4 +24,9 @@ public interface BoardMapper {
 	
 	
 	public List<BoardVO> getListWithPaging(Criteria cri);
+	
+	public int getTotalCount(Criteria cri);
+	
+	// 검색
+	public List<BoardVO> getSearch(Criteria cri);
 }

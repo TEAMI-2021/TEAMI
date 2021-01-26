@@ -20,21 +20,16 @@ public class PageDTO {
 
 		this.cri = cri;
 	    this.total = total;
-
-	    log.info("cri.getStartList() : " + cri.getStartList());
-	    log.info("(cri.getStartList()+1) : " + (cri.getStartList()+1));
-	    log.info("(cri.getStartList()+1)/(double)cri.getAmount() : " + (cri.getStartList()+1)/(double)cri.getAmount());
-	    log.info("((cri.getStartList()+1)/(double)cri.getAmount())/10.0 : " + ((cri.getStartList()+1)/(double)cri.getAmount())/10.0);
-	    log.info("Math.ceil(((cri.getStartList()+1)/(double)cri.getAmount())/10.0) : " + Math.ceil(((cri.getStartList()+1)/(double)cri.getAmount())/10.0));
-	    this.endPage = (int) (Math.ceil(((cri.getStartList()+1)/(double)cri.getAmount())/10.0)*10);
+	    
+	    this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0) * 10);
 	    log.info("endPage..........." + endPage);
 	    
 	    this.startPage = this.endPage - 9;
-//	    this.startPage = 1;
 	    log.info("startPage..........." + startPage);
 
 	    int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
-
+	    log.info("realEnd..........." + realEnd);
+	    
 	    if (realEnd <= this.endPage) {
 	      this.endPage = realEnd;
 	    }
