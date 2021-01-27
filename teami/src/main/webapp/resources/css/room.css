@@ -30,4 +30,10 @@ table{
 	text-align: right;
 }
 
+#submitFindRoom{
+	color: black;
+}
 
+#inputRoomCode{
+	color: black;
+}

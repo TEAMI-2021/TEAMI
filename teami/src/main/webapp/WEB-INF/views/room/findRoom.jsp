@@ -8,28 +8,13 @@
 <head> 
 	<link href="/resources/css/room.css" rel="stylesheet">
 	<title>FindRoom</title>
+	<script src="/resources/assets/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </head>
-<script type = "text/javascript">
-	$(document).ready(function(){
-		function fn_roomChk(){
-			$.ajax({
-				url:"/room/roomChk",
-				type : "post"
-				dataType : "json",
-				data : {"room_code" : $("#room_code").val()},
-				success: function(data){
-					if(data==1){
-						$("#roomChk").attr("value", "Y");
-						
-					}else if(data == 0){
-						alert("유효하지 않는 방코드입니다.")
-					}
-					
-				}
-			})
-		}
-	})
-</script>
 <body>
 		<div class="centered">
 		<div class="centered2">
@@ -38,7 +23,7 @@
 				<h2>T E A M I</h2> <br/>
 				<table>
 					<tr>
-						<td>방 코드 </td> <td> <input name="room_code"></input></td>
+						<td>방 코드 </td> <td> <input name="room_code" id="inputRoomCode"></input></td>
 					</tr>
 
 			    </table>
@@ -54,18 +39,16 @@
 		<!-- 모달창 -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
            	aria-labelledby="myModalLabel" aria-hidden="true">
-             <div class="modal-dialog"> 
+             <div class="modal-dialog" role="document"> 
              	<div class="modal-content">
              		<div class="modal-header">
              			<h4 class = "modal-title" id = "myModalLabel">Room Code Check</h4>
-             			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                		</button>
+             			
                 	</div>
-                	<div class="modal-body">처리가 완료되었습니다.</div>
+                	<div class="modal-body">유효하지 않는 방 코드 입니다.</div>
                 	<div class="modal-footer">
-                		<button type="button" class="btn btn-default"
+                		<button type="button" class="btn btn-primary"
                 			data-dismiss="modal">Close</button>
-                		<button type="button" class="btn btn-primary">Save changes</button>
                 	</div>
                 </div>
              </div>	
@@ -74,5 +57,18 @@
 </html>
 
 <script type="text/javascript">
-	
+	$(document).ready(function(){
+		var result = '<c:out value="${result}"/>';
+		
+		checkModal(result);
+		
+		//history.replaceState({}, null, null);
+		
+		function checkModal(result){
+			
+			if(parseInt(result)===0){
+				$("#myModal").modal("show");	
+			}
+		}
+	});
 </script>

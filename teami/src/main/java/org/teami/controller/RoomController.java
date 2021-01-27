@@ -60,7 +60,7 @@ public class RoomController {
 		int result = service.roomChk(roomMember.getRoom_code());
 		if(result==0) {
 			rttr.addFlashAttribute("result", result);
-			return "/room/findRoom";
+			return "redirect:/room/findRoom";
 		}
 		else if(result==1){
 			rttr.addFlashAttribute("result", result);
