@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+   <%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +13,19 @@
 		
 	
 		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-
+<c:forEach items="${list}" var="board">
 		<script>
 		$(document).ready(function(){
-			$("#spreadBtn02").click(function(){
-				if($("#hiddenList01").is(":visible")){
-					$("#hiddenList01").slideUp(); 
+			$("#spreadBtn<c:out value="${board.bno}"/>").click(function(){
+				if($("#hiddenList<c:out value="${board.bno}"/>").is(":visible")){
+					$("#hiddenList<c:out value="${board.bno}"/>").slideUp(); 
 					}
 				else{
-						$("#hiddenList01").slideDown(); 
+						$("#hiddenList<c:out value="${board.bno}"/>").slideDown(); 
 						} 
 				}); 
 			}); 
-		</script>
+		</script></c:forEach>
 
 	</head>
 	<!-- 위 -->
@@ -50,38 +52,23 @@
 									     
 									     
 									      <td>
-									        <table>
-									          <tr>
-									          <tr>
-									            <td><p style="text-align:right">작성자&nbsp;|&nbsp;2021.01.08&nbsp;</p></td>
-									          </tr>
-									            <td>
-									              <div id="accordion">
-									                <div>테스트 글입니다</div>
-									                <div>테스트테스트트ㅔ트트트트.</div>
-									                <div>왜 안될까</div>
-									                <div>테스트테스트테스테스테</div>										
-									              </div>
-									            </td>									         
-									        
-									        </table>
-
+									      
+											<c:forEach items="${list}" var="board">
 									       <table>
+									       
 									          <tr>
 									          <tr>
-									            <td><p style="text-align:right">작성자&nbsp;|&nbsp;2021.01.08&nbsp;</p></td>
+									            <td><p style="text-align:right"><c:out value="${board.writer}"/>&nbsp;|&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value = "${board.regdate}"/>&nbsp;</p></td>
 									          </tr>						 
 											
 											    <td>
 											        
-											    <div id="spreadBtn02" class="btn01">
-											    <strong><div>제목 웅앵어쩌구</div></strong>
-											    <div>내용 일부분 어쩌구</div>
+											    <div id="spreadBtn<c:out value="${board.bno}"/>" class="btn01">
+											    <strong><div><c:out value="${board.bno}"/></div></strong>
+											    <div><c:out value="${board.title}"/></div>
 											    </div>
-											     <div id="hiddenList01" class="example01" style="display: none;">
-											      전체 내오ㅛㅇ 어쩌구ㅜㅇㅇ
-											      ㅇㅇㅇㅇㅇ
-											      ㅇㅇㅇㅇ
+											     <div id="hiddenList<c:out value="${board.bno}"/>" class="example01" style="display: none;">
+											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
 									                <a href="#">댓글</a>&nbsp;&nbsp;|
 									                <a href="#">수정</a>&nbsp;&nbsp;|
@@ -90,8 +77,8 @@
 											      </div>
 
 											    </td>								         
-									         
-									        </table>
+									        
+									        </table> </c:forEach>
 									      </td>
 								
 									    </tr>

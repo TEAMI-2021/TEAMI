@@ -14,6 +14,6 @@ public class MemberVO {
 	
 	private String auth;
 	
-//	private List<AuthVO> authList;
+	private List<AuthVO> authList;
 	
 }
