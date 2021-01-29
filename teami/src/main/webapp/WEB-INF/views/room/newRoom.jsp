@@ -6,7 +6,7 @@
 
 <html>
 <head> 
-	<link href="/resources/css/room.css" rel="stylesheet">
+	<link href="/resources/assets/css/room.css" rel="stylesheet">
 	<title>NewRoom</title>
 </head>
 <body>

@@ -1,6 +1,5 @@
 package org.teami.mapper;
 
-import org.teami.domain.AuthVO;
 import org.teami.domain.MemberVO;
 
 public interface MemberMapper {

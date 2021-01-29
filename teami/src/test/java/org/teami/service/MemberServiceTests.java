@@ -1,18 +1,13 @@
 package org.teami.service;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.teami.domain.AuthVO;
 import org.teami.domain.MemberVO;
-import org.teami.domain.RoomVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

@@ -1,7 +1,5 @@
 package org.teami.mapper;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,6 @@ public class RoomMapperTests {
 	
 	@Test
 	 public void testInsertRoom() {
-		
-		ArrayList<RoomMemberVO>roomMeberList = new ArrayList<>();
 		
 		RoomVO room = new RoomVO();
 		room.setRoom_code("123");

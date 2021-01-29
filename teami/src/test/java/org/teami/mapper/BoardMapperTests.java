@@ -28,30 +28,30 @@ public class BoardMapperTests {
 //	public void testGetList() {
 //		mapper.getList().forEach(board -> log.info(board));
 //	}
-//	
-//	@Test
-//	public void testInsert() {
-//		BoardVO board = new BoardVO();
-//		board.setTitle("새 제목");
-//		board.setContent("새 내용");
-//		board.setWriter("newbie");
-//		
-//		mapper.insert(board);
-//		
-//		log.info(board);
-//	}
-//	
-//	@Test
-//	public void testInsertSelectKey() {
-//		BoardVO board = new BoardVO();
-//		board.setTitle("새 제목 select key");
-//		board.setContent("새 내용 select key");
-//		board.setWriter("newbie");
-//		
-//		mapper.insertSelectKey(board);
-//		
-//		log.info(board);
-//	}
+	
+	@Test
+	public void testInsert() {
+		BoardVO board = new BoardVO();
+		board.setTitle("새 제목");
+		board.setContent("새 내용");
+		board.setWriter("newbie");
+		
+		mapper.insert(board);
+		
+		log.info(board);
+	}
+	
+	@Test
+	public void testInsertSelectKey() {
+		BoardVO board = new BoardVO();
+		board.setTitle("새 제목 select key");
+		board.setContent("새 내용 select key");
+		board.setWriter("newbie");
+		
+		mapper.insertSelectKey(board);
+		
+		log.info(board);
+	}
 //	
 //	@Test
 //	public void testRead() {

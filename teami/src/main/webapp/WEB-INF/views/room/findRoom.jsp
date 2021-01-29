@@ -6,7 +6,7 @@
 
 <html>
 <head> 
-	<link href="/resources/css/room.css" rel="stylesheet">
+	<link href="/resources/assets/css/room.css" rel="stylesheet">
 	<title>FindRoom</title>
 	<script src="/resources/assets/js/jquery.min.js"></script>
 	

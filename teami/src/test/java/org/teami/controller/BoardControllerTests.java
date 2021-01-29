@@ -1,4 +1,4 @@
-package com.teami.controller;
+package org.teami.controller;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,17 +47,17 @@ public class BoardControllerTests {
 //				.getModelMap());
 //	}
 //	
-//	@Test
-//	public void testRegister() throws Exception {
-//		
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
-//				.param("title", "테스트 새 제목")
-//				.param("content", "테스트 새 내용")
-//				.param("writer", "user00")
-//				).andReturn().getModelAndView().getViewName();
-//		
-//		log.info(resultPage);
-//	}
+	@Test
+	public void testRegister() throws Exception {
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+				.param("title", "테스트 새 제목")
+				.param("content", "테스트 새 내용")
+				.param("writer", "user00")
+				).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}
 //	
 //	@Test
 //	public void testGet() throws Exception {
