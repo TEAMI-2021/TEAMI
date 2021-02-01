@@ -65,4 +65,14 @@ public class RoomMapperTests {
 		
 	}
 	
+	@Test
+	public void testCreateRoomBoard() {
+		RoomVO room = new RoomVO();
+		room.setRoom_code("123");
+		room.setRoom_name("테스트");
+		room.setUser_id("test123"); 
+		
+		mapper.createRoomBoard(room.getRoom_code());
+	}
+	
 }

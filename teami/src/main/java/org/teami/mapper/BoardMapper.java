@@ -2,7 +2,6 @@ package org.teami.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 

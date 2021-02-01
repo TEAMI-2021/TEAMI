@@ -35,8 +35,10 @@ public class BoardMapperTests {
 		board.setTitle("새 제목");
 		board.setContent("새 내용");
 		board.setWriter("newbie");
-		
-		mapper.insert(board);
+		//board.setRoom_code("411");
+		for(int i=0; i<300; i++) {
+			mapper.insert(board);
+		}
 		
 		log.info(board);
 	}
@@ -47,20 +49,20 @@ public class BoardMapperTests {
 		board.setTitle("새 제목 select key");
 		board.setContent("새 내용 select key");
 		board.setWriter("newbie");
-		
+		//board.setRoom_code("411");
 		mapper.insertSelectKey(board);
 		
 		log.info(board);
 	}
 //	
-//	@Test
-//	public void testRead() {
-//		
-//		// 존래하는 게시물 번호로 테스트
-//		BoardVO board = mapper.read(5L);
-//		
-//		log.info(board);
-//	}
+	@Test
+	public void testRead() {
+		
+		// 존래하는 게시물 번호로 테스트
+		BoardVO board = mapper.read(5L);
+		
+		log.info(board);
+	}
 //	
 //	@Test
 //	public void testDelete() {

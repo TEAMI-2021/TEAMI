@@ -32,7 +32,7 @@ public class BoardController {
 //	}
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {
+	public void list(Criteria cri, String room_code, Model model) {
 		
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
@@ -46,7 +46,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
+	public String register(BoardVO board, String room_code, RedirectAttributes rttr) {
 		
 		log.info("register: " + board);
 		
@@ -73,10 +73,10 @@ public class BoardController {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
+		//rttr.addAttribute("pageNum", cri.getPageNum());
+		//rttr.addAttribute("amount", cri.getAmount());
+		//rttr.addAttribute("type", cri.getType());
+		//rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list";
 	}

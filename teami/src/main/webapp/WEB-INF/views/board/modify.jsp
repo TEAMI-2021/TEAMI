@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +32,11 @@
 
 										<!-- Form -->
 													<!-- Form -->
-													<h3>글쓰기</h3>
-													<form method="post" action="#">
+													<h3>수정하기</h3>
+													<form method="post" action="/board/modify">
 														<div class="row gtr-uniform">
 															<div class="col-12">
-																<input type="text" name="demo-name" id="demo-name" value="" placeholder="글제목" />
+																<input type="text" name="title" value='<c:out value="${board.title }"/>'/>
 															</div>
 															<!-- Break -->
 															<div class="col-12">
@@ -47,22 +49,24 @@
 															<!-- Break -->
 															<div class="col-6 col-12-small">
 																<input type="checkbox" id="demo-copy" name="demo-copy">
-																<label for="demo-copy">공지&nbsp;&nbsp;</div>
-																<div>
+																<label for="demo-copy">공지&nbsp;&nbsp;</label>
+															</div>
+															<div>
 																<a href="#" class="button icon solid fa-download">첨부파일</a>
 															</div>
 															
 															<!-- Break -->
 															<div class="col-12">
-																<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+																<textarea name="content" rows="6"><c:out value="${board.content}"/></textarea>
 															</div>
 															<!-- Break -->
 															<div class="col-12">
 																<ul class="actions">
-																	<li><input type="submit" value="수정하기" class="primary" /></li>
-																	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+																	<li><input type="submit" data-oper='modify' value="수정하기" class="primary" /></li>
 																</ul>
 															</div>
+															<input type="hidden" name="writer" value=<sec:authentication property = "principal.username"/>/>
+															<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 														</div>
 													</form>
 

@@ -20,6 +20,7 @@ public class RoomServiceImpl implements RoomService{
 		log.info("register Room.......");
 		mapper.insert(room);
 		mapper.insertRoomMember(room);
+		mapper.createRoomBoard(room.getRoom_code());
 	}
 
 	@Override

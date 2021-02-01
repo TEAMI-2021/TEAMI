@@ -17,7 +17,7 @@
 	<security:intercept-url pattern="/" access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/room/*" access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/login/admin" access="hasRole('ROLE_ADMIN')"/>
-	
+	<security:intercept-url pattern="/board/*" access="hasRole('ROLE_MEMBER')"/>
 	<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
 	
 	<security:logout logout-url="/customLogout" invalidate-session="true"/>

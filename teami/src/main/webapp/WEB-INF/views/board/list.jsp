@@ -86,20 +86,33 @@
 									  </table>
 													</div>
 													<ul class="pagination">
-														<li><span class="button disabled">Prev</span></li>
-														<li><a href="#" class="page active">1</a></li>
-														<li><a href="#" class="page">2</a></li>
-														<li><a href="#" class="page">3</a></li>
-														<li><span>&hellip;</span></li>
-														<li><a href="#" class="page">8</a></li>
-														<li><a href="#" class="page">9</a></li>
-														<li><a href="#" class="page">10</a></li>
-														<li><a href="#" class="button">Next</a></li>
+														<c:choose>
+															<c:when test="${pageMaker.prev }">
+																<li><a class="page-link" href="${pageMaker.startPage -1 }" tabindex="-1">Prev</a></li>
+															</c:when>
+															<c:otherwise>
+																<li><span class="button disabled">Prev</span></li>
+															</c:otherwise>
+														</c:choose>
+														<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+															<li><a class="page ${pageMaker.cri.pageNum==num?"active":""}"" href="${num }">${num }</a></li>
+														</c:forEach>
+														<c:choose>
+															<c:when test="${pageMaker.next }">
+																<li><a href="${pageMaker.endPage +1 }" class="page-link">Next</a></li>
+															</c:when>
+															<c:otherwise>
+																<li><span class="button disabled">Next</span></li>
+															</c:otherwise>
+														</c:choose>
 														<p style="text-align:right;">
 									                <a href="/board/register" class="button" style="text-align:right;">글쓰기</a></p>
 													</ul>
  
-							
+													<form id="actionForm" action="/board/list" method="get">
+                										<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
+                										<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+               										</form>
 						</div>
 					</div>
 
@@ -116,6 +129,34 @@
 			<script src="/resources/assets/js/breakpoints.min.js"></script>
 			<script src="/resources/assets/js/util.js"></script>
 			<script src="/resources/assets/js/main.js"></script>
+			<script type = "text/javascript">
+			$(document).ready(function(){
+				var actionForm = $("#actionForm");
+			
+				$(".page").on("click", function(e){
+				
+					e.preventDefault();
+				
+					var targetPage = $(this).attr("href");
+				
+					console.log(targetPage);
+				
+					actionForm.find("input[name='pageNum']").val(targetPage);
+					actionForm.submit();
+				});
+				$(".page-link").on("click", function(e){
+					
+					e.preventDefault();
+				
+					var targetPage = $(this).attr("href");
+				
+					console.log(targetPage);
+				
+					actionForm.find("input[name='pageNum']").val(targetPage);
+					actionForm.submit();
+				});
 
+		});
+		</script>
 	</body>
 </html>
