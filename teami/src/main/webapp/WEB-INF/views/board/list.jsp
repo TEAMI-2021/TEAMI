@@ -96,7 +96,7 @@
 														<li><a href="#" class="page">10</a></li>
 														<li><a href="#" class="button">Next</a></li>
 														<p style="text-align:right;">
-									                <a href="/board/register" class="button" onclick="loaction:/board/register"  style="text-align:right;">글쓰기</a></p>
+									                <a href="/board/register" class="button" style="text-align:right;">글쓰기</a></p>
 													</ul>
  
 							
