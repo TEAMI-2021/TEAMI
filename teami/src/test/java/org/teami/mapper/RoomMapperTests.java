@@ -75,4 +75,9 @@ public class RoomMapperTests {
 		mapper.createRoomBoard(room.getRoom_code());
 	}
 	
+	@Test
+	public void testGetRoom() {
+		mapper.getList("test123").forEach(room -> log.info(room));
+	}
+	
 }

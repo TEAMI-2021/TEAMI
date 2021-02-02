@@ -18,10 +18,12 @@
 		<result property="user_id" column="user_id"/>
 	</resultMap>
 	
-	<select id="getList" resultType="org.teami.domain.RoomVO">
-	<![CDATA[
-	select * from room_table
-	]]>
+	<select id="getList" resultMap="RoomMap">
+		SELECT
+			room.room_code, room_name, user_id
+		FROM
+			room_table room LEFT OUTER JOIN room_member_table rmt on room.room_code = rmt.room_code
+		WHERE rmt.user_id=#{user_id}
 	</select>
 	
 	<select id="read" resultMap="RoomMap">

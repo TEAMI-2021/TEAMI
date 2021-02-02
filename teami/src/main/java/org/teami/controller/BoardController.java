@@ -1,5 +1,9 @@
 package org.teami.controller;
 
+import java.security.Principal;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,7 @@ import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 import org.teami.domain.PageDTO;
 import org.teami.service.BoardService;
+import org.teami.service.RoomService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -23,6 +28,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 
 	private BoardService service;
+	private RoomService roomService;
 //	
 //	@GetMapping("/list")
 //	public void list(Model model) {
@@ -32,12 +38,12 @@ public class BoardController {
 //	}
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, String room_code, Model model) {
-		
+	public void list(Criteria cri, Principal principal, Model model) {		
+
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
 //		model.addAttribute("pageMaker", new PageDTO(cri, 123));
-		
+		model.addAttribute("roomList", roomService.getList(principal.getName()));
 		int total = service.getTotal(cri);
 		
 		log.info("total: " + total);
@@ -58,10 +64,11 @@ public class BoardController {
 	}
 	
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
+	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model, Principal principal) {
 		
 		log.info("get or modify");
-		model.addAttribute("board", service.get(bno));	
+		model.addAttribute("board", service.get(bno));
+		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
 
 	@PostMapping("/modify")
@@ -99,7 +106,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
-	public void register() {
-		
+	public void register(Principal principal, Model model) {
+		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
 }

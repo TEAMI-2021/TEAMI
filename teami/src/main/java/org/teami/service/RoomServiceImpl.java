@@ -1,6 +1,9 @@
 package org.teami.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.teami.domain.BoardVO;
 import org.teami.domain.RoomMemberVO;
 import org.teami.domain.RoomVO;
 import org.teami.mapper.RoomMapper;
@@ -38,5 +41,10 @@ public class RoomServiceImpl implements RoomService{
 		return mapper.roomChk(room_code);
 	}
 
+	@Override
+	public List<RoomVO> getList(String user_id) {
+		// TODO Auto-generated method stub
+		return mapper.getList(user_id);
+	}
 	
 }

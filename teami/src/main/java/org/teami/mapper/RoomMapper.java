@@ -8,7 +8,7 @@ import org.teami.domain.RoomVO;
 
 public interface RoomMapper {
 
-	public List<RoomVO> getList();
+	public List<RoomVO> getList(String user_id);
 	
 	public RoomVO read(String room_code);
 	
