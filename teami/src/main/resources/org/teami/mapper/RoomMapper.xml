@@ -18,6 +18,12 @@
 		<result property="user_id" column="user_id"/>
 	</resultMap>
 	
+	<select id="getList" resultType="org.teami.domain.RoomVO">
+	<![CDATA[
+	select * from room_table
+	]]>
+	</select>
+	
 	<select id="read" resultMap="RoomMap">
 		SELECT
 			room.room_code, room_name, user_id

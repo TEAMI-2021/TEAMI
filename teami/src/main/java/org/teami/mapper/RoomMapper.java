@@ -1,11 +1,15 @@
 package org.teami.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.teami.domain.RoomMemberVO;
 import org.teami.domain.RoomVO;
 
 public interface RoomMapper {
 
+	public List<RoomVO> getList();
+	
 	public RoomVO read(String room_code);
 	
 	public void insert(RoomVO room);

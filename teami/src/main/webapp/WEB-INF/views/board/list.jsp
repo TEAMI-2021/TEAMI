@@ -71,7 +71,7 @@
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
 									                <a href="#">댓글</a>&nbsp;&nbsp;|
-									                <a href="#">수정</a>&nbsp;&nbsp;|
+									                <a href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									                <a href="#">삭제</a>&nbsp;&nbsp;
 									              </p>
 											      </div>

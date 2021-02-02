@@ -46,7 +46,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, String room_code, RedirectAttributes rttr) {
+	public String register(BoardVO board, RedirectAttributes rttr) {
 		
 		log.info("register: " + board);
 		
@@ -65,7 +65,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		
 		log.info("modify: " + board);
 		

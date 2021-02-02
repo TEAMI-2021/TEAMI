@@ -65,6 +65,7 @@
 															</div>
 															<input type="hidden" name="writer" value=<sec:authentication property = "principal.username"/> />
 															<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+															
 														</div>
 													</form>
 
