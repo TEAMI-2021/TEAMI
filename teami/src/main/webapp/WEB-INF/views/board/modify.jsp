@@ -35,11 +35,15 @@
 						</div>
 					<!-- Break -->
 						<div class="col-12">
+							<input type = "hidden" name="room_code" value='<c:out value="${room.room_code}"/>'/>
+							<input type = "text" value='<c:out value="${room.room_name}"/>(방코드: <c:out value="${room.room_code}"/>)' readonly="readonly"/>
+							<!-- 
 							<select name="demo-category" id="demo-category">
 								<option value="">- 팀선택 -</option>
 								<option value="1">팀1</option>
 								<option value="1">팀2</option>
 							</select>
+							 -->
 						</div>
 						<!-- Break -->
 						<div class="col-6 col-12-small">
@@ -60,7 +64,7 @@
 							<li><input type="submit" value="수정하기" class="primary" /></li>
 							</ul>
 						</div>
-						<input type="hidden" name="writer" value=<sec:authentication property = "principal.username"/>/>
+						<input type="hidden" name="writer" value='<sec:authentication property = "principal.username"/>'/>
 						<input type="hidden" name="regdate" value='<fmt:formatDate pattern = "yyyy/MM/dd" value = "${board.regdate}" />'/>
 						<input type="hidden" name="updatedate" value='<fmt:formatDate pattern = "yyyy/MM/dd" value = "${board.updatedate}" />'/>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

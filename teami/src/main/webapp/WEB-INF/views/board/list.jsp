@@ -13,7 +13,7 @@
 		
 	
 		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-<c:forEach items="${list}" var="board">
+		<c:forEach items="${list}" var="board">
 		<script>
 		$(document).ready(function(){
 			$("#spreadBtn<c:out value="${board.bno}"/>").click(function(){
@@ -71,7 +71,7 @@
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
 									                <a href="#">댓글</a>&nbsp;&nbsp;|
-									                <a href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
+									                <a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									                <a href="#">삭제</a>&nbsp;&nbsp;
 									              </p>
 											      </div>
@@ -110,8 +110,17 @@
 													</ul>
  
 													<form id="actionForm" action="/board/list" method="get">
-                										<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
-                										<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+														<c:choose>
+															<c:when test="${room_code!=null} }">
+																<input type="hidden" name="room_code" value = "${room_code}">
+                												<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
+                												<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+               												</c:when>
+               												<c:otherwise>
+                												<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
+                												<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+               												</c:otherwise>
+               											</c:choose>
                										</form>
 						</div>
 					</div>

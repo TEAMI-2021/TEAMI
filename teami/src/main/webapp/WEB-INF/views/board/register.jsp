@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +40,11 @@
 															</div>
 															<!-- Break -->
 															<div class="col-12">
-																<select name="demo-category" id="demo-category">
+																<select name="room_code" id="demo-category">
 																	<option value="">- 팀선택 -</option>
-																	<option value="1">팀1</option>
-																	<option value="1">팀2</option>
+																	<c:forEach items="${roomList}" var="room">
+																		<option value="${room.room_code}"><c:out value="${room.room_name}"/>(방코드: <c:out value="${room.room_code}"/>)</option>
+																	</c:forEach>
 																</select>
 															</div>
 															<!-- Break -->

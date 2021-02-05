@@ -21,6 +21,7 @@
 							<li>
 							<span class="opener active"><c:out value="${room.room_name}"/></span>
 							<ul>
+								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>">전체글</a></li>
 								<li><a href="#">공지</a></li>
 								<li><a href="#">파일</a></li>						
 							</ul>

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 
@@ -23,11 +24,11 @@ public class BoardMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
-//	
-//	@Test
-//	public void testGetList() {
-//		mapper.getList().forEach(board -> log.info(board));
-//	}
+	
+	@Test
+	public void testGetList() {
+		mapper.getList("411").forEach(board -> log.info(board));
+	}
 	
 	@Test
 	public void testInsert() {
@@ -35,7 +36,7 @@ public class BoardMapperTests {
 		board.setTitle("새 제목");
 		board.setContent("새 내용");
 		board.setWriter("newbie");
-		//board.setRoom_code("411");
+		board.setRoom_code("411");
 		for(int i=0; i<300; i++) {
 			mapper.insert(board);
 		}
@@ -49,7 +50,7 @@ public class BoardMapperTests {
 		board.setTitle("새 제목 select key");
 		board.setContent("새 내용 select key");
 		board.setWriter("newbie");
-		//board.setRoom_code("411");
+		board.setRoom_code("411");
 		mapper.insertSelectKey(board);
 		
 		log.info(board);
@@ -57,19 +58,24 @@ public class BoardMapperTests {
 //	
 	@Test
 	public void testRead() {
+		BoardReadVO br = new BoardReadVO();
+		br.setBno(4L);
+		br.setRoom_code("411");
 		
 		// 존래하는 게시물 번호로 테스트
-		BoardVO board = mapper.read(5L);
+		BoardVO board = mapper.read(br);
 		
 		log.info(board);
 	}
-//	
-//	@Test
-//	public void testDelete() {
-//		
-//		log.info("DELETE COUNT: " + mapper.delete(5L));
-//	}
-//	
+	
+	@Test
+	public void testDelete() {
+		BoardReadVO br = new BoardReadVO();
+		br.setBno(3L);
+		br.setRoom_code("411");
+		log.info("DELETE COUNT: " + mapper.delete(br));
+	}
+	
 	@Test
 	public void testUpdate() {
 		
@@ -84,19 +90,20 @@ public class BoardMapperTests {
 		
 		log.info("UPDATE COUNT: " + count);
 	}
-//	
-//	@Test
-//	public void testPaging() {
-//		
-//		Criteria cri = new Criteria();
-//		cri.setPageNum(1);
-//		cri.setAmount(10);
-//		
-//		List<BoardVO> list = mapper.getListWithPaging(cri);
-//		
-//		list.forEach(board -> log.info(board.getBno()));
-//	}
+	
+	@Test
+	public void testPaging() {
+		
+		Criteria cri = new Criteria();
+		cri.setPageNum(1);
+		cri.setAmount(10);
+		cri.setRoom_code("411");
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board.getBno()));
+	}
 
+	/*
 	@Test
 	public void testSearch() {
 		
@@ -108,4 +115,5 @@ public class BoardMapperTests {
 		
 		list.forEach(board -> log.info(board));
 	}
+	*/
 }

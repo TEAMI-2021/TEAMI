@@ -6,12 +6,12 @@
 
 	<select id="getList" resultType="org.teami.domain.BoardVO">
 	<![CDATA[
-	select * from tbl_board where bno > 0
+	select * from board_${room_code} where bno > 0
 	]]>
 	</select>	
 	
 	<insert id="insert">
-		insert into tbl_board (title, content, writer)
+		insert into board_${room_code} (title, content, writer)
 		values (#{title}, #{content}, #{writer})
 	</insert>
 <!--  
@@ -23,9 +23,9 @@
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
 <!--  			SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'tbl_board' AND table_schema = DATABASE() -->
-			SELECT MAX(bno)+1 FROM tbl_board
+			SELECT case count(*) when 0 then 1 else max(bno) + 1 end bno FROM board_${room_code}
 		</selectKey>
-		insert into tbl_board (bno, title, content, writer)
+		insert into board_${room_code} (bno, title, content, writer)
 		values (#{bno}, #{title}, #{content}, #{writer})
 	</insert>	
 <!-- 
@@ -34,22 +34,22 @@
  -->
  
 	<select id="read" resultType="org.teami.domain.BoardVO">
-		select * from tbl_board where bno = #{bno}
+		select * from board_${room_code} where bno = #{bno}
 	</select>	
 	
 	<delete id="delete">
-		delete from tbl_board where bno = #{bno}
+		delete from board_${room_code} where bno = #{bno}
 	</delete>
 	
 	<update id="update">
-		update tbl_board set title=#{title}, content=#{content}, writer=#{writer}, 
+		update board_${room_code} set title=#{title}, content=#{content}, writer=#{writer}, 
 		updatedate = NOW() where bno = #{bno}
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.teami.domain.BoardVO">
 		<![CDATA[
-			select bno, title, content, writer, regdate, updatedate
-			FROM tbl_board
+			select *
+			FROM board_${room_code}
 			ORDER BY bno DESC
 			LIMIT #{skip}, #{amount}
 		]]>
@@ -57,7 +57,7 @@
 	
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[
-			select count(*) FROM tbl_board WHERE bno > 0
+			select count(*) FROM board_${room_code} WHERE bno > 0
 		]]>
 	</select>
 	
