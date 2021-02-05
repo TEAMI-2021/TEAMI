@@ -101,7 +101,7 @@ public class BoardController {
 		return "redirect:/board/list?room_code="+board.getRoom_code();
 	}
 	
-	@PostMapping("/remove")
+	@GetMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, @RequestParam("room_code") String room_code, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		
 		log.info("remove: " + bno);

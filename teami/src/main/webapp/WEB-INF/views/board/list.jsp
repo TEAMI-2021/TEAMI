@@ -72,7 +72,7 @@
 											      <p style="text-align:right;">
 									                <a href="#">댓글</a>&nbsp;&nbsp;|
 									                <a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
-									                <a href="#">삭제</a>&nbsp;&nbsp;
+									                <a href="/board/remove?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
 									              </p>
 											      </div>
 
