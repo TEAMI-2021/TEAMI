@@ -42,7 +42,6 @@ public class BoardController {
 	@GetMapping("/list")
 	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
 		
-		
 		if(room_code == null) {
 			
 		}
