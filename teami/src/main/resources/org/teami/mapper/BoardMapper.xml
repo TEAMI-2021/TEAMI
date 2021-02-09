@@ -6,7 +6,7 @@
 
 	<select id="getList" resultType="org.teami.domain.BoardVO">
 	<![CDATA[
-	select * from board_${room_code} where bno > 0
+	select * from board_${room_code} where bno > 0 ORDER BY bno DESC
 	]]>
 	</select>	
 	

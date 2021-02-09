@@ -2,6 +2,8 @@ package org.teami.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/board/*")
 @AllArgsConstructor
-public class BoardController {
+public class BoardController{
 
 	private BoardService service;
 	private RoomService roomService;
@@ -39,21 +41,54 @@ public class BoardController {
 //		model.addAttribute("list", service.getList());		
 //	}
 	
+	class regDateCompare implements Comparator<BoardVO>{
+
+		@Override
+		public int compare(BoardVO o1, BoardVO o2) {
+			// TODO Auto-generated method stub
+			return o1.getRegdate().compareTo(o2.getRegdate());
+		}
+	}
+	
 	@GetMapping("/list")
 	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
-		
+		boolean roomBoolean = true;
 		if(room_code == null) {
-			
+			List<RoomVO> roomList = roomService.getList(principal.getName());
+			List<BoardVO> boardList = new ArrayList<BoardVO>();
+			List<BoardVO> boardList2 = new ArrayList<BoardVO>();
+			int total=0;
+			for(int i=0; i<roomList.size(); i++) {
+				String room=roomList.get(i).getRoom_code();
+				cri.setRoom_code(room);
+				boardList.addAll(service.getList(room));
+				for(int j=0; j<boardList.size(); j++) {
+					boardList.get(i).setRoom_code(room);
+				}
+				total = total + service.getTotal(cri);
+			}
+			Collections.sort(boardList, new regDateCompare());
+			Collections.reverse(boardList);
+			for(int i=cri.getSkip(); i<cri.getSkip()+cri.getAmount(); i++) {
+				if(i==total) {
+					break;
+				}
+				boardList2.add(boardList.get(i));
+			}
+			model.addAttribute("room_code", null);
+			model.addAttribute("list", boardList2);
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
 		else {
 			log.info("list: " + cri);
-			model.addAttribute("list", service.getList(cri));
+			model.addAttribute("list", service.getListWithPaging(cri));
 			model.addAttribute("room_code", room_code);
 //			model.addAttribute("pageMaker", new PageDTO(cri, 123));
 			int total = service.getTotal(cri);
 			
 			log.info("total: " + total);
 			
+			roomBoolean=true;
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
@@ -126,4 +161,6 @@ public class BoardController {
 	public void register(Principal principal, Model model) {
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
+	
+	
 }

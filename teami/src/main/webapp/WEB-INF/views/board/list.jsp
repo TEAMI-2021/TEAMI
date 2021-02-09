@@ -58,7 +58,7 @@
 									       
 									          <tr>
 									          <tr>
-									            <td><p style="text-align:right"><c:out value="${board.writer}"/>&nbsp;|&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value = "${board.regdate}"/>&nbsp;</p></td>
+									            <td><p style="text-align:right"><c:out value="${board.writer}"/>&nbsp;|&nbsp;<fmt:formatDate pattern="yy-MM-dd HH:mm:ss" value = "${board.regdate}"/>&nbsp;</p></td>
 									          </tr>						 
 											
 											    <td>
@@ -70,8 +70,15 @@
 											     <div id="hiddenList<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
-									                <a href="#">댓글</a>&nbsp;&nbsp;|
-									                <a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
+									                <a href="#">댓글</a>&nbsp;&nbsp;
+									                <c:choose>
+									                	<c:when test="${room_code==null}">
+									                		 <a href="/board/modify?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
+									                	</c:when>
+									           			<c:otherwise>
+									           				<a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
+									           			</c:otherwise>
+									                </c:choose>
 									                <a href="/board/remove?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
 									              </p>
 											      </div>
@@ -111,15 +118,15 @@
  
 													<form id="actionForm" action="/board/list" method="get">
 														<c:choose>
-															<c:when test="${room_code!=null} }">
-																<input type="hidden" name="room_code" value = "${room_code}">
-                												<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
-                												<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
-               												</c:when>
-               												<c:otherwise>
-                												<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
-                												<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
-               												</c:otherwise>
+														<c:when test="${room_code ==null }">
+															<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
+                											<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+														</c:when>
+														<c:otherwise>
+															<input type="hidden" name="room_code" value = "${room_code}">
+															<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum }">
+                											<input type="hidden" name="amount" value = "${pageMaker.cri.amount }">
+														</c:otherwise>
                											</c:choose>
                										</form>
 						</div>

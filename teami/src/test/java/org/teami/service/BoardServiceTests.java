@@ -48,7 +48,7 @@ public class BoardServiceTests {
 	@Test
 	public void testGetList() {
 //		service.getList().forEach(board -> log.info(board));
-		service.getList(new Criteria(2, 10, "411")).forEach(board -> log.info(board));
+		service.getListWithPaging(new Criteria(2, 10, "411")).forEach(board -> log.info(board));
 	}
 //
 //	@Test
