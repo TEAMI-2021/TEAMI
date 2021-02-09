@@ -1,12 +1,12 @@
 package org.teami.service;
 
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 
@@ -35,9 +35,10 @@ public class BoardServiceTests {
 	public void testRegister() {
 		
 		BoardVO board = new BoardVO();
-		board.setTitle("새 제목");
+		board.setTitle("안녕하세요");
 		board.setContent("새 내용");
 		board.setWriter("newbie");
+		board.setRoom_code("411");
 		
 		service.register(board);
 		
@@ -47,7 +48,7 @@ public class BoardServiceTests {
 	@Test
 	public void testGetList() {
 //		service.getList().forEach(board -> log.info(board));
-		service.getList(new Criteria(2, 10)).forEach(board -> log.info(board));
+		service.getList(new Criteria(2, 10, "411")).forEach(board -> log.info(board));
 	}
 //
 //	@Test
@@ -56,24 +57,30 @@ public class BoardServiceTests {
 //		log.info(service.get(1L));
 //	}
 //	
-//	@Test
-//	public void testUpdate() {
-//		
-//		BoardVO board = service.get(1L);
-//		
-//		if (board == null) {
-//			return;
-//		}
-//		board.setTitle("제목 수정합니다");
-//		log.info("MODIFY RESULT: " + service.modify(board));
+	@Test
+	public void testUpdate() {
+		
+		BoardReadVO br = new BoardReadVO();
+		br.setBno(60L);
+		br.setRoom_code("411");
+		
+		BoardVO board = service.get(br);
+		if (board == null) {
+			return;
+		}
+		board.setRoom_code(br.getRoom_code());
+		board.setTitle("제목 수정합니다");
+		log.info("MODIFY RESULT: " + service.modify(board));
 	
-//	}	
+	}	
 	
 	@Test
 	public void testDelete() {
-		
+		BoardReadVO br = new BoardReadVO();
+		br.setBno(7L);
+		br.setRoom_code("411");
 		// 게시물 번호의 존대 여부를 확인하고 테스트할 것
-		log.info("REMOVE RESULT: " + service.remove(7L));
+		log.info("REMOVE RESULT: " + service.remove(br));
 	}
 
 }

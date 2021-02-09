@@ -18,6 +18,14 @@
 		<result property="user_id" column="user_id"/>
 	</resultMap>
 	
+	<select id="getList" resultMap="RoomMap">
+		SELECT
+			room.room_code, room_name, user_id
+		FROM
+			room_table room LEFT OUTER JOIN room_member_table rmt on room.room_code = rmt.room_code
+		WHERE rmt.user_id=#{user_id}
+	</select>
+	
 	<select id="read" resultMap="RoomMap">
 		SELECT
 			room.room_code, room_name, user_id
@@ -39,4 +47,16 @@
 	<select id="roomChk" resultType="int">
 		SELECT count(*) FROM room_table WHERE room_code=#{user_code}
 	</select>
+	
+	<update id="createRoomBoard" parameterType="java.lang.String">
+		CREATE TABLE IF NOT EXISTS board_${room_code} (
+			bno INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			title VARCHAR(200) NOT NULL,
+			content VARCHAR(2000) NOT NULL,
+			writer VARCHAR(50) NOT NULL,
+			regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
+			updatedate DATETIME DEFAULT CURRENT_TIMESTAMP
+			);
+	</update>
+	
 </mapper>

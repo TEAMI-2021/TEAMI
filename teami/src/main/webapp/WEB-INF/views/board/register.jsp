@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,30 +33,31 @@
 										<!-- Form -->
 													<!-- Form -->
 													<h3>글쓰기</h3>
-													<form method="post" action="#">
+													<form method="post" action="/board/register">
 														<div class="row gtr-uniform">
 															<div class="col-12">
-																<input type="text" name="demo-name" id="demo-name" value="" placeholder="글제목" />
+																<input type="text" name="title" value="" placeholder="글제목" />
 															</div>
 															<!-- Break -->
 															<div class="col-12">
-																<select name="demo-category" id="demo-category">
+																<select name="room_code" id="demo-category">
 																	<option value="">- 팀선택 -</option>
-																	<option value="1">팀1</option>
-																	<option value="1">팀2</option>
+																	<c:forEach items="${roomList}" var="room">
+																		<option value="${room.room_code}"><c:out value="${room.room_name}"/>(방코드: <c:out value="${room.room_code}"/>)</option>
+																	</c:forEach>
 																</select>
 															</div>
 															<!-- Break -->
 															<div class="col-6 col-12-small">
 																<input type="checkbox" id="demo-copy" name="demo-copy">
-																<label for="demo-copy">공지&nbsp;&nbsp;</div>
+																<label for="demo-copy">공지&nbsp;&nbsp;</label></div>
 																<div>
 																<a href="#" class="button icon solid fa-download">첨부파일</a>
 															</div>
 															
 															<!-- Break -->
 															<div class="col-12">
-																<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+																<textarea name="content" placeholder="Enter your message" rows="6"></textarea>
 															</div>
 															<!-- Break -->
 															<div class="col-12">
@@ -62,6 +65,9 @@
 																	<li><input type="submit" value="글쓰기" class="primary" /></li>
 																</ul>
 															</div>
+															<input type="hidden" name="writer" value=<sec:authentication property = "principal.username"/> />
+															<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+															
 														</div>
 													</form>
 

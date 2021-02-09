@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 import org.teami.mapper.BoardMapper;
@@ -30,11 +31,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO get(Long bno) {
+	public BoardVO get(BoardReadVO boardRead) {
 		
-		log.info("get.........." + bno);
+		log.info("get.........." + boardRead.getBno());
 
-		return mapper.read(bno);
+		return mapper.read(boardRead);
 	}
 
 	@Override
@@ -46,11 +47,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean remove(Long bno) {
+	public boolean remove(BoardReadVO boardRead) {
 
-		log.info("remove................." + bno);
+		log.info("remove................." + boardRead.getBno());
 		
-		return mapper.delete(bno) == 1;
+		return mapper.delete(boardRead) == 1;
 	}
 //
 //	@Override
@@ -62,7 +63,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
 		log.info("get List wirh Criteria: " + cri);
-		return mapper.getListWithPaging(cri);
+		List<BoardVO> boardList = mapper.getListWithPaging(cri);
+		//for(int i=0; i<boardList.size(); i++) {
+		//	boardList.get(i).setRoom_code(cri.getRoom_code());
+		//}
+		return boardList;
 	}
 	
 	@Override

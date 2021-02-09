@@ -5,7 +5,7 @@
 
 <html>
 <head>
-	<link href="/resources/css/home.css" rel="stylesheet">
+	<link href="/resources/assets/css/home.css" rel="stylesheet">
 	<title>JoinIn</title>
 </head>
 <body>

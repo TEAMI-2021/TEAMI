@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.teami.domain.Criteria;
 import org.teami.domain.RoomMemberVO;
 import org.teami.domain.RoomVO;
 
@@ -59,5 +60,10 @@ public class RoomServiceTests {
 	public void testRoomChk() {
 		int i = service.roomChk("0987");
 		log.info("방코드체크:"+i);
+	}
+	
+	@Test
+	public void testGetList() {
+		service.getList("test123").forEach(room -> log.info(room));
 	}
 }

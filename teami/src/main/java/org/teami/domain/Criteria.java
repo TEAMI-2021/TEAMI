@@ -11,17 +11,20 @@ public class Criteria {
 
 	private int pageNum;
 	private int amount;
+	private String room_code;
 	
 	private String type;
 	private String keyword;
 	
 	public Criteria() {
-		this(1, 10);
+		this.setPageNum(1);
+		this.setAmount(10);
 	}
 	
-	public Criteria(int pageNum, int amount) {
+	public Criteria(int pageNum, int amount, String room_code) {
 		this.pageNum = pageNum;
 		this.amount = amount;
+		this.room_code=room_code;
 	}
 	
 	public int getSkip() {

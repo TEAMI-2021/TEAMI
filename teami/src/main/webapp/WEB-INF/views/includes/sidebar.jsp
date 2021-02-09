@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,20 +17,16 @@
 					</header>
 					<ul>
 						<li><a href="index.html">Mypage</a></li>
-						<li>
-							<span class="opener active">팀이름1</span>
+						<c:forEach items="${roomList}" var="room">
+							<li>
+							<span class="opener active"><c:out value="${room.room_name}"/></span>
 							<ul>
+								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>">전체글</a></li>
 								<li><a href="#">공지</a></li>
 								<li><a href="#">파일</a></li>						
 							</ul>
 						</li>
-						<li>
-							<span class="opener active">팀이름2</span>
-							<ul>
-								<li><a href="#">공지</a></li>
-								<li><a href="#">파일</a></li>
-							</ul>
-						</li>
+						</c:forEach>
 					</ul>
 				</nav>
 									
