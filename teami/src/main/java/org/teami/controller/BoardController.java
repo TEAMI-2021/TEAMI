@@ -2,6 +2,8 @@ package org.teami.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/board/*")
 @AllArgsConstructor
-public class BoardController {
+public class BoardController{
 
 	private BoardService service;
 	private RoomService roomService;
@@ -38,6 +40,15 @@ public class BoardController {
 //		log.info("list");
 //		model.addAttribute("list", service.getList());		
 //	}
+	
+	class regDateCompare implements Comparator<BoardVO>{
+
+		@Override
+		public int compare(BoardVO o1, BoardVO o2) {
+			// TODO Auto-generated method stub
+			return o1.getRegdate().compareTo(o2.getRegdate());
+		}
+	}
 	
 	@GetMapping("/list")
 	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
@@ -56,6 +67,8 @@ public class BoardController {
 				}
 				total = total + service.getTotal(cri);
 			}
+			Collections.sort(boardList, new regDateCompare());
+			Collections.reverse(boardList);
 			for(int i=cri.getSkip(); i<cri.getSkip()+cri.getAmount(); i++) {
 				if(i==total) {
 					break;
@@ -148,4 +161,6 @@ public class BoardController {
 	public void register(Principal principal, Model model) {
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
+	
+	
 }
