@@ -53,15 +53,15 @@ public class BoardServiceImpl implements BoardService {
 		
 		return mapper.delete(boardRead) == 1;
 	}
-//
-//	@Override
-//	public List<BoardVO> getList() {
-//		log.info("getList...........");
-//		return mapper.getList();
-//	}
+
+	@Override
+	public List<BoardVO> getList(String room_code) {
+		log.info("getList...........");
+		return mapper.getList(room_code);
+	}
 	
 	@Override
-	public List<BoardVO> getList(Criteria cri) {
+	public List<BoardVO> getListWithPaging(Criteria cri) {
 		log.info("get List wirh Criteria: " + cri);
 		List<BoardVO> boardList = mapper.getListWithPaging(cri);
 		//for(int i=0; i<boardList.size(); i++) {

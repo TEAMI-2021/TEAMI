@@ -16,9 +16,9 @@ public interface BoardService {
 	
 	public boolean remove(BoardReadVO boardRead);
 	
-//	public List<BoardVO> getList();
+	public List<BoardVO> getList(String room_code);
 	
-	public List<BoardVO> getList(Criteria cri);
+	public List<BoardVO> getListWithPaging(Criteria cri);
 	
 	public int getTotal(Criteria cri);
 }

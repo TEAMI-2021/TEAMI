@@ -41,19 +41,41 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
-		
+		boolean roomBoolean = true;
 		if(room_code == null) {
-			
+			List<RoomVO> roomList = roomService.getList(principal.getName());
+			List<BoardVO> boardList = new ArrayList<BoardVO>();
+			List<BoardVO> boardList2 = new ArrayList<BoardVO>();
+			int total=0;
+			for(int i=0; i<roomList.size(); i++) {
+				String room=roomList.get(i).getRoom_code();
+				cri.setRoom_code(room);
+				boardList.addAll(service.getList(room));
+				for(int j=0; j<boardList.size(); j++) {
+					boardList.get(i).setRoom_code(room);
+				}
+				total = total + service.getTotal(cri);
+			}
+			for(int i=cri.getSkip(); i<cri.getSkip()+cri.getAmount(); i++) {
+				if(i==total) {
+					break;
+				}
+				boardList2.add(boardList.get(i));
+			}
+			model.addAttribute("room_code", null);
+			model.addAttribute("list", boardList2);
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
 		else {
 			log.info("list: " + cri);
-			model.addAttribute("list", service.getList(cri));
+			model.addAttribute("list", service.getListWithPaging(cri));
 			model.addAttribute("room_code", room_code);
 //			model.addAttribute("pageMaker", new PageDTO(cri, 123));
 			int total = service.getTotal(cri);
 			
 			log.info("total: " + total);
 			
+			roomBoolean=true;
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
