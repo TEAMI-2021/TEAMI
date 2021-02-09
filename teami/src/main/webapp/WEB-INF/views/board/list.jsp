@@ -74,6 +74,65 @@
 									                <a href="#">수정</a>&nbsp;&nbsp;|
 									                <a href="#">삭제</a>&nbsp;&nbsp;
 									              </p>
+									              <div id="comments">
+                                         <div class="comment_row">
+                                         
+                                               <textarea id="new_comment"></textarea>
+                                               <button id='addReplyBtn' class="button small" type="submit">댓글 쓰기</button>
+                                               <p style="text-align:right;">
+									                <a href="#">수정</a>&nbsp;&nbsp;|
+									                <a href="#">삭제</a>&nbsp;&nbsp;
+									              </p>
+									              
+									              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+														<script src="${pageContext.request.contextPath}/resources/assets/js/reply.js"></script>
+														
+											<script>
+											
+											$(document).ready(function () {
+												  
+												  var bnoValue = '<c:out value="${board.bno}"/>';
+												  var replyUL = $(".chat");
+												  
+												    showList(1);
+												    
+												function showList(page){
+																	
+												    
+												    replyService.getList({bno:bnoValue,page: page|| 1 }, function(list) {
+												    	
+												    	var str="";
+												    	if(list==null||list.length==0){
+												    		replyUL.html("");
+												    		
+												    		return;
+												    	}
+												    	 for (var i = 0, len = list.length || 0; i < len; i++) {
+												    	       str +="<div class='left clearfix' data-rno='"+list[i].rno+"'>";
+												    	       str +="  <div><div class='header'><strong class='primary-font'>["
+												    	    	   +list[i].rno+"] "+list[i].replyer+"</strong>"; 
+												    	       str +="    <small class='pull-right text-muted'>"
+												    	           +list[i].replyDate+"</small></div>";
+												    	       str +="    <p>"+list[i].reply+"</p></div></div>";
+												    	       console.log(list[i]);
+												    	     }
+												    	 replyUL.html(str);
+												    	});
+												    }
+											});
+											</script>
+											<script type="text/javascript">
+											$(document).ready(function() {
+											  
+											 console.log(replyService);
+											    
+											  });
+											</script>
+                                               </div>
+                                          </div>
+                                          <!---->
+                                         
+									              
 											      </div>
 
 											    </td>								         
@@ -111,11 +170,11 @@
 					
 
 		<!-- Scripts -->
-			<script src="/resources/assets/js/jquery.min.js"></script>
-			<script src="/resources/assets/js/browser.min.js"></script>
-			<script src="/resources/assets/js/breakpoints.min.js"></script>
-			<script src="/resources/assets/js/util.js"></script>
-			<script src="/resources/assets/js/main.js"></script>
+		
+
+
+
+ 
 
 	</body>
 </html>
