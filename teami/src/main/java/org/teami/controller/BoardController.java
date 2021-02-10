@@ -63,7 +63,7 @@ public class BoardController{
 				cri.setRoom_code(room);
 				boardList.addAll(service.getList(room));
 				for(int j=0; j<boardList.size(); j++) {
-					boardList.get(i).setRoom_code(room);
+					boardList.get(j).setRoom_code(room);
 				}
 				total = total + service.getTotal(cri);
 			}
