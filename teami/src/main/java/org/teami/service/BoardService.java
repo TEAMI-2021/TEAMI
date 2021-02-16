@@ -20,5 +20,9 @@ public interface BoardService {
 	
 	public List<BoardVO> getListWithPaging(Criteria cri);
 	
+	public List<BoardVO> getNoticeListWithPaging(Criteria cri);
+	
 	public int getTotal(Criteria cri);
+	
+	public int getNoticeTotal(Criteria cri);
 }

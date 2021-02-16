@@ -22,10 +22,13 @@ public interface BoardMapper {
 	
 	public int update(BoardVO board);
 	
-	
 	public List<BoardVO> getListWithPaging(Criteria cri);
 	
+	public List<BoardVO> getNoticeListWithPaging(Criteria cri);
+	
 	public int getTotalCount(Criteria cri);
+	
+	public int getNoticeTotalCount(Criteria cri);
 	
 	// 검색
 	public List<BoardVO> getSearch(Criteria cri);

@@ -19,10 +19,10 @@
 						<li><a href="index.html">Mypage</a></li>
 						<c:forEach items="${roomList}" var="room">
 							<li>
-							<span class="opener active"><c:out value="${room.room_name}"/></span>
+							<span class="opener active"><c:out value="${room.room_name}"/>(<c:out value="${room.room_code }"/>)</span>
 							<ul>
 								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>">전체글</a></li>
-								<li><a href="#">공지</a></li>
+								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>&notice=1">공지</a></li>
 								<li><a href="#">파일</a></li>						
 							</ul>
 						</li>

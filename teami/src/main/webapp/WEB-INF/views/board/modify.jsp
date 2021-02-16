@@ -47,8 +47,17 @@
 						</div>
 						<!-- Break -->
 						<div class="col-6 col-12-small">
-								<input type="checkbox" id="demo-copy" name="demo-copy">
-								<label for="demo-copy">공지&nbsp;&nbsp;</label>
+								<c:set var = "notice2" value='${board.notice }'/>
+								<c:choose>
+									<c:when test="${board.notice == '1'.charAt(0)}">
+										<input type="checkbox" id="notice" name="notice" onchange="YnCheck(this)" checked="checked">
+										<label for="notice">공지&nbsp;&nbsp;</label>
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" id="notice" name="notice" onchange="YnCheck(this)">
+										<label for="notice">공지&nbsp;&nbsp;</label>
+									</c:otherwise>
+								</c:choose>
 						</div>
 						<div>
 							<a href="#" class="button icon solid fa-download">첨부파일</a>
@@ -93,7 +102,18 @@
 
 			formObj.submit(); //서버에 <input>에 담긴 데이터를 전달하면서 요청
 		});
+		
+		console.log(${board.notice});
 	});
+	
+	function YnCheck(obj){
+		var checked = obj.checked;
+		if(checked){
+			obj.value='1';
+		}else{
+			obj.value='0';
+		}
+	};
 	</script>
 	
 	</body>

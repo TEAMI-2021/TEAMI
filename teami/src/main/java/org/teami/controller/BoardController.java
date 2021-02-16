@@ -51,8 +51,8 @@ public class BoardController{
 	}
 	
 	@GetMapping("/list")
-	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
-		if(room_code == null) {
+	public void list(@RequestParam(value="room_code", required=false) String room_code,@RequestParam(value="notice", required=false) String notice, Criteria cri, Principal principal, Model model) {		
+		if(room_code == null && notice == null) {
 			List<RoomVO> roomList = roomService.getList(principal.getName());
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
 			List<BoardVO> boardList2 = new ArrayList<BoardVO>();
@@ -78,7 +78,7 @@ public class BoardController{
 			model.addAttribute("list", boardList2);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
-		else {
+		else if(notice==null){
 			log.info("list: " + cri);
 			model.addAttribute("list", service.getListWithPaging(cri));
 			model.addAttribute("room_code", room_code);
@@ -87,6 +87,14 @@ public class BoardController{
 			
 			log.info("total: " + total);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
+		}
+		else{
+			model.addAttribute("list", service.getNoticeListWithPaging(cri));
+			model.addAttribute("room_code", room_code);
+			
+			int noticeTotal = service.getNoticeTotal(cri);
+			
+			model.addAttribute("pageMaker", new PageDTO(cri, noticeTotal));
 		}
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}

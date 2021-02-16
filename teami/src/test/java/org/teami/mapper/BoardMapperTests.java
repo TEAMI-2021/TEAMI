@@ -102,7 +102,27 @@ public class BoardMapperTests {
 		
 		list.forEach(board -> log.info(board.getBno()));
 	}
-
+	
+	@Test
+	public void testNoticePaging() {
+		Criteria cri = new Criteria();
+		cri.setPageNum(1);
+		cri.setAmount(10);
+		cri.setRoom_code("346");
+		List<BoardVO> list = mapper.getNoticeListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board.getBno()));
+	}
+	
+	@Test
+	public void testNoticeTotal() {
+		Criteria cri = new Criteria();
+		cri.setPageNum(1);
+		cri.setAmount(10);
+		cri.setRoom_code("346");
+		
+		log.info(mapper.getNoticeTotalCount(cri));
+	}
 	/*
 	@Test
 	public void testSearch() {

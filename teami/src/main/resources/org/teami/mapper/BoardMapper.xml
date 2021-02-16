@@ -11,8 +11,8 @@
 	</select>	
 	
 	<insert id="insert">
-		insert into board_${room_code} (title, content, writer)
-		values (#{title}, #{content}, #{writer})
+		insert into board_${room_code} (title, content, writer, notice)
+		values (#{title}, #{content}, #{writer}, #{notice})
 	</insert>
 <!--  
 	bno를 null 값으로 넣는 법?
@@ -25,8 +25,8 @@
 <!--  			SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'tbl_board' AND table_schema = DATABASE() -->
 			SELECT case count(*) when 0 then 1 else max(bno) + 1 end bno FROM board_${room_code}
 		</selectKey>
-		insert into board_${room_code} (bno, title, content, writer)
-		values (#{bno}, #{title}, #{content}, #{writer})
+		insert into board_${room_code} (bno, title, content, writer, notice)
+		values (#{bno}, #{title}, #{content}, #{writer}, #{notice})
 	</insert>	
 <!-- 
 	INFO : org.teami.mapper.BoardMapperTests - 
@@ -42,7 +42,7 @@
 	</delete>
 	
 	<update id="update">
-		update board_${room_code} set title=#{title}, content=#{content}, writer=#{writer}, 
+		update board_${room_code} set title=#{title}, content=#{content}, writer=#{writer}, notice=#{notice},
 		updatedate = NOW() where bno = #{bno}
 	</update>
 	
@@ -55,9 +55,25 @@
 		]]>
 	</select>
 	
+	<select id="getNoticeListWithPaging" resultType="org.teami.domain.BoardVO">
+		<![CDATA[
+			select *
+			FROM board_${room_code}
+			WHERE notice='1'
+			ORDER BY bno DESC
+			LIMIT #{skip}, #{amount}
+		]]>
+	</select>
+	
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[
 			select count(*) FROM board_${room_code} WHERE bno > 0
+		]]>
+	</select>
+	
+	<select id="getNoticeTotalCount" resultType="int">
+		<![CDATA[
+			select count(*) FROM board_${room_code} WHERE bno > 0 AND notice='1'
 		]]>
 	</select>
 	

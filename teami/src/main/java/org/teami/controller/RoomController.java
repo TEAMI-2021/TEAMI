@@ -31,7 +31,7 @@ public class RoomController {
 		
 		rttr.addFlashAttribute("result", room.getRoom_code());
 		
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/newRoom")
@@ -66,7 +66,7 @@ public class RoomController {
 			rttr.addFlashAttribute("result", result);
 			service.addMember(roomMember);	
 		}
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 	
 	

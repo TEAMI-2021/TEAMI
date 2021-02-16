@@ -16,16 +16,17 @@
 		<c:forEach items="${list}" var="board">
 		<script>
 		$(document).ready(function(){
-			$("#spreadBtn<c:out value="${board.bno}"/>").click(function(){
-				if($("#hiddenList<c:out value="${board.bno}"/>").is(":visible")){
-					$("#hiddenList<c:out value="${board.bno}"/>").slideUp(); 
+			$("#spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").click(function(){
+				if($("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").is(":visible")){
+					$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideUp(); 
 					}
 				else{
-						$("#hiddenList<c:out value="${board.bno}"/>").slideDown(); 
+						$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideDown(); 
 						} 
 				}); 
 			}); 
-		</script></c:forEach>
+		</script>
+		</c:forEach>
 
 	</head>
 	<!-- 위 -->
@@ -62,12 +63,11 @@
 									          </tr>						 
 											
 											    <td>
-											        
-											    <div id="spreadBtn<c:out value="${board.bno}"/>" class="btn01">
+											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
 											    <strong><div><c:out value="${board.bno}"/></div></strong>
 											    <div><c:out value="${board.title}"/></div>
 											    </div>
-											     <div id="hiddenList<c:out value="${board.bno}"/>" class="example01" style="display: none;">
+											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
 									                <a href="#">댓글</a>&nbsp;&nbsp;

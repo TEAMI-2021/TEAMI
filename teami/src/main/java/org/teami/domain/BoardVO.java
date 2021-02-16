@@ -15,4 +15,5 @@ public class BoardVO {
 	private Date regdate;
 	private Date updatedate;
 	private String room_code;
+	private char notice;
 }

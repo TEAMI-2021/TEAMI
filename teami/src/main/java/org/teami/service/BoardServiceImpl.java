@@ -75,5 +75,17 @@ public class BoardServiceImpl implements BoardService {
 		log.info("get total count");
 		return mapper.getTotalCount(cri);
 	}
+
+	@Override
+	public List<BoardVO> getNoticeListWithPaging(Criteria cri) {
+		List<BoardVO> boardList = mapper.getNoticeListWithPaging(cri);
+		return boardList;
+	}
+
+	@Override
+	public int getNoticeTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getNoticeTotalCount(cri);
+	}
 	
 }
