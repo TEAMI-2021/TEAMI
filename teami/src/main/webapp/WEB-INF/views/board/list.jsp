@@ -64,7 +64,7 @@
 											
 											    <td>
 											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
-											    <strong><div><c:out value="${board.bno}"/></div></strong>
+											    <strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code }"/>)</div></strong>
 											    <div><c:out value="${board.title}"/></div>
 											    </div>
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
