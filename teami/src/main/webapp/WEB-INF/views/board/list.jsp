@@ -64,7 +64,15 @@
 											
 											    <td>
 											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
-											    <strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code }"/>)</div></strong>
+											    <c:choose>
+											    <c:when test="${room_code == null}">
+											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code }"/>)</div></strong>
+											    </c:when>
+											    <c:otherwise>
+											    	<strong><div><c:out value="${board.bno}"/></div></strong>
+											    </c:otherwise>
+											    </c:choose>
+											    
 											    <div><c:out value="${board.title}"/></div>
 											    </div>
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
