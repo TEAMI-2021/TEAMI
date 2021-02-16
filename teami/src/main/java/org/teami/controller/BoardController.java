@@ -52,7 +52,6 @@ public class BoardController{
 	
 	@GetMapping("/list")
 	public void list(@RequestParam(value="room_code", required=false) String room_code, Criteria cri, Principal principal, Model model) {		
-		boolean roomBoolean = true;
 		if(room_code == null) {
 			List<RoomVO> roomList = roomService.getList(principal.getName());
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
@@ -62,7 +61,7 @@ public class BoardController{
 				String room=roomList.get(i).getRoom_code();
 				cri.setRoom_code(room);
 				boardList.addAll(service.getList(room));
-				for(int j=0; j<boardList.size(); j++) {
+				for(int j = total; j<boardList.size(); j++) {
 					boardList.get(j).setRoom_code(room);
 				}
 				total = total + service.getTotal(cri);
@@ -87,8 +86,6 @@ public class BoardController{
 			int total = service.getTotal(cri);
 			
 			log.info("total: " + total);
-			
-			roomBoolean=true;
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
