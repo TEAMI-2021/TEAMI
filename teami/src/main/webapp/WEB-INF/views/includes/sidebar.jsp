@@ -16,7 +16,7 @@
 						<h2>TEAMI</h2>
 					</header>
 					<ul>
-						<li><a href="index.html">Mypage</a></li>
+						<li><a href="/board/list">My page</a></li>
 						<c:forEach items="${roomList}" var="room">
 							<li>
 							<span class="opener active"><c:out value="${room.room_name}"/>(<c:out value="${room.room_code }"/>)</span>
