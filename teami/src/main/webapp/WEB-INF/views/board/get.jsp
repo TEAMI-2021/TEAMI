@@ -277,7 +277,9 @@ function showList(page){
     
 
     modalRegisterBtn.on("click",function(e){
-      
+    	
+    	var bnoValue = '<c:out value="${board.bno}"/>';
+    	
       var reply = {
             reply: modalInputReply.val(),
             replyer:modalInputReplyer.val(),

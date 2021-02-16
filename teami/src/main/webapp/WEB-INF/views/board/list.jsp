@@ -9,6 +9,7 @@
 <title>main_page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		
 	
@@ -77,22 +78,63 @@
 									              <div id="comments">
                                          <div class="comment_row">
                                          
-                                               <textarea id="new_comment"></textarea>
-                                               <button id='addReplyBtn' class="button small" type="submit">댓글 쓰기</button>
+                                               <textarea id="reply_text" name="reply_text"></textarea>
+                                               <button id="addReplyBtn<c:out value="${board.bno}"/>" class="btn btn-primary btn-xs pull-right" type="submit">댓글 쓰기</button>
                                                <p style="text-align:right;">
 									                <a href="#">수정</a>&nbsp;&nbsp;|
 									                <a href="#">삭제</a>&nbsp;&nbsp;
 									              </p>
-									              
+									                  <!-- /.panel -->
+												    <div class="panel panel-default">
+												<!--       <div class="panel-heading">
+												        <i class="fa fa-comments fa-fw"></i> Reply
+												      </div> -->
+												      
+												      <div class="panel-heading">
+												        <i class="fa fa-comments fa-fw"></i> Reply
+												      </div>      
+      
 									              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 														<script src="${pageContext.request.contextPath}/resources/assets/js/reply.js"></script>
-														
+											<ul class="chat<c:out value="${board.bno}"/>"></ul>			
 											<script>
-											
+											 //$("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
+													// 화면으로부터 입력 받은 변수값의 처리 
+													 var bnoValue = '<c:out value="${board.bno}"/>';
+													var reply = $("#reply_text"); 
+													var replyer = "작성자"; 
+													var reply_Val = reply.val(); 
+
+													
+												//var reply = {
+															//reply:"댓글",
+												           // replyer:"작성자",
+												            //bno:bnoValue
+												         // };
+													console.log("eotrmf");
+													replyService.add({
+														reply:"댓글",
+											            replyer:"작성자",
+											            bno:bnoValue
+											          }, function(result){
+												        
+												        alert("result :"+result);
+												        console.log("eotrmf");
+												        document.getElementById("reply_text").value="";
+
+												       
+												        //showList(1);
+												       showList(1);
+												        
+												      });
+
+												     
+												      
+												    });
 											$(document).ready(function () {
-												  
+												
 												  var bnoValue = '<c:out value="${board.bno}"/>';
-												  var replyUL = $(".chat");
+												  var replyUL = $(".chat<c:out value="${board.bno}"/>");
 												  
 												    showList(1);
 												    
@@ -107,10 +149,11 @@
 												    		
 												    		return;
 												    	}
+												    	
 												    	 for (var i = 0, len = list.length || 0; i < len; i++) {
 												    	       str +="<div class='left clearfix' data-rno='"+list[i].rno+"'>";
 												    	       str +="  <div><div class='header'><strong class='primary-font'>["
-												    	    	   +list[i].rno+"] "+list[i].replyer+"</strong>"; 
+												    	    	   +list[i].rno+"] "+list[i].replyer+"....."+bnoValue+"....."+i+"</strong>"; 
 												    	       str +="    <small class='pull-right text-muted'>"
 												    	           +list[i].replyDate+"</small></div>";
 												    	       str +="    <p>"+list[i].reply+"</p></div></div>";
@@ -120,13 +163,17 @@
 												    	});
 												    }
 											});
+										
 											</script>
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<script type="text/javascript">
 											$(document).ready(function() {
 											  
 											 console.log(replyService);
 											    
 											  });
+
+											
 											</script>
                                                </div>
                                           </div>

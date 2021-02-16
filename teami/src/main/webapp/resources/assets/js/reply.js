@@ -4,7 +4,8 @@ var replyService = (function() {
 
 	function add(reply, callback, error) {
 		console.log("add reply...............");
-
+//var token = $("meta[name='_csrf']").attr('content');
+//var header = $("meta[name='_csrf_header']").attr('content');
 		$.ajax({
 			type : 'post',
 			url : '/replies/new',
@@ -12,10 +13,14 @@ var replyService = (function() {
 			contentType : "application/json; charset=utf-8",
 			beforeSend : function(xhr)
                       {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                      console.log("beforeSend...............");
                           xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                          console.log("beforeSend...............");
                       },
 			success : function(result, status, xhr) {
+			console.log("success...............");
 				if (callback) {
+				console.log("success...............");
 					callback(result);
 				}
 			},
@@ -51,7 +56,7 @@ var replyService = (function() {
 	    var bno = param.bno;
 	    var page = param.page || 1;
 	    
-	    $.getJSON("/replies/pages/" + 1 + "/" + 1 + ".json",
+	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {
@@ -64,12 +69,41 @@ var replyService = (function() {
 	      }
 	    });
 	  }
+function remove(rno, callback, error) {
+		$.ajax({
+			type : 'delete',
+			url : '/replies/' + rno,
+			success : function(deleteResult, status, xhr) {
+				if (callback) {
+					callback(deleteResult);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		});
+	}
+		function get(rno, callback, error) {
 
+		$.get("/replies/" + rno + ".json", function(result) {
+
+			if (callback) {
+				callback(result);
+			}
+
+		}).fail(function(xhr, status, err) {
+			if (error) {
+				error();
+			}
+		});
+	};
 	return {
 		add : add,
-		//get : get,
+		get : get,
 		getList : getList,
-		//remove : remove,
+		remove : remove,
 		//update : update,
 		//displayTime : displayTime
 	};
