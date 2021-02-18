@@ -1,5 +1,6 @@
 package org.teami.controller;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
@@ -161,6 +163,41 @@ public class BoardController{
 	public void register(Principal principal, Model model) {
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
+	
+	
+	
+	
+	
+	@PostMapping("/uploadAjaxAction")
+	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+		
+		log.info("update ajax post.....................");
+		
+		String uploadFolder = "C:\\upload";
+		
+		for (MultipartFile multipartFile : uploadFile) {
+			
+			log.info("-----------------------------------------------");
+			log.info("Upload File Name: " + multipartFile.getOriginalFilename());
+			log.info("Upload File Size: " + multipartFile.getSize());
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+			log.info("only file name: " + uploadFileName);
+			
+			File saveFile = new File(uploadFolder, uploadFileName);
+			
+			try {
+				
+				multipartFile.transferTo(saveFile);
+
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+	}
+
 	
 	
 }

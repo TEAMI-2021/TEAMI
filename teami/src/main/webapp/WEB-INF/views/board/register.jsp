@@ -51,8 +51,15 @@
 															<div class="col-6 col-12-small">
 																<input type="checkbox" id="demo-copy" name="demo-copy">
 																<label for="demo-copy">공지&nbsp;&nbsp;</label></div>
-																<div>
-																<a href="#" class="button icon solid fa-download">첨부파일</a>
+															<div class="uploadDiv">
+																<!-- <a href="#" class="button icon solid fa-download">첨부파일</a> -->
+																
+																<input type="file" name='uploadFile' multiple>
+																<div class='uploadResult'>
+																	<ul>
+																	</ul>
+																</div>
+																
 															</div>
 															
 															<!-- Break -->
@@ -89,6 +96,75 @@
 			<script src="/resources/assets/js/breakpoints.min.js"></script>
 			<script src="/resources/assets/js/util.js"></script>
 			<script src="/resources/assets/js/main.js"></script>
+
+
+<script>
+
+$(document).ready(function(){
+/*	
+	var formObj = $("form[role='form']");
+	
+	$("button[type='submit']").on("click", function(e){
+		
+		e.preventDefault();
+		
+		console.log("submit clicked");
+		
+	});
+*/	
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	var maxSize = 5242880;
+	
+	function checkExtension(fileName, fileSize){
+		
+		if(fileSize >= maxSize){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		
+		if(regex.test(fileName)){
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+	
+	$("input[type='file']").change(function(e){
+		
+		var formData = new FormData();
+		
+		var inputFile = $("input[name='uploadFile']");
+		
+		var files = inputFile[0].files;
+		
+		for(var i=0; i<files.length; i++){
+			
+			if(!checkExtension(files[i].name, files[i].size)){
+				return false;
+			}		
+			formData.append("uploadFile", files[i]);
+		}
+		
+		$.ajax({
+			url: '/board/uploadAjaxAction',
+			processData: false,
+			contentType: false,
+			data: formData,
+			type: 'POST',
+			dataType: 'json',
+
+			success: function(result){
+				console.log(result);
+				
+				//showUploadedFile(result);	//업로드 결과 처리 함수
+
+			}
+		});
+	});
+
+});
+</script>
+
 
 	</body>
 </html>
