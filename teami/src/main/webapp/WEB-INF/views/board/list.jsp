@@ -98,7 +98,7 @@
 														<script src="${pageContext.request.contextPath}/resources/assets/js/reply.js"></script>
 											<ul class="chat<c:out value="${board.bno}"/>"></ul>			
 											<script>
-											 //$("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
+											 $("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
 													// 화면으로부터 입력 받은 변수값의 처리 
 													 var bnoValue = '<c:out value="${board.bno}"/>';
 													var reply = $("#reply_text"); 
