@@ -2,7 +2,7 @@ console.log("Reply Module........");
 
 var replyService = (function() {
 
-	function add(reply, callback, error) {
+	function add(header,token,reply, callback, error) {
 		console.log("add reply...............");
 //var token = $("meta[name='_csrf']").attr('content');
 //var header = $("meta[name='_csrf_header']").attr('content');
@@ -13,9 +13,7 @@ var replyService = (function() {
 			contentType : "application/json; charset=utf-8",
 			beforeSend : function(xhr)
                       {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-                      console.log("beforeSend...............");
-                          xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                          console.log("beforeSend...............");
+                          xhr.setRequestHeader(header,token);
                       },
 			success : function(result, status, xhr) {
 			console.log("success...............");
@@ -69,10 +67,14 @@ var replyService = (function() {
 	      }
 	    });
 	  }
-function remove(rno, callback, error) {
+function remove(header,token,rno, callback, error) {
 		$.ajax({
 			type : 'delete',
 			url : '/replies/' + rno,
+			beforeSend : function(xhr)
+                      {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                          xhr.setRequestHeader(header,token);
+                      },
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
 					callback(deleteResult);

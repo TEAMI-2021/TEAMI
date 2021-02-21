@@ -9,9 +9,11 @@
 <title>main_page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
+<meta name="_csrf" content="${_csrf.token}"/>
+      <meta name="_csrf_header" content="${_csrf.headerName}"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
-		
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	
 		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <c:forEach items="${list}" var="board">
@@ -78,12 +80,9 @@
 									              <div id="comments">
                                          <div class="comment_row">
                                          
-                                               <textarea id="reply_text" name="reply_text"></textarea>
+                                               <textarea id="reply_text<c:out value="${board.bno}"/>" name="reply_text"></textarea>
                                                <button id="addReplyBtn<c:out value="${board.bno}"/>" class="btn btn-primary btn-xs pull-right" type="submit">댓글 쓰기</button>
-                                               <p style="text-align:right;">
-									                <a href="#">수정</a>&nbsp;&nbsp;|
-									                <a href="#">삭제</a>&nbsp;&nbsp;
-									              </p>
+                                               
 									                  <!-- /.panel -->
 												    <div class="panel panel-default">
 												<!--       <div class="panel-heading">
@@ -98,72 +97,87 @@
 														<script src="${pageContext.request.contextPath}/resources/assets/js/reply.js"></script>
 											<ul class="chat<c:out value="${board.bno}"/>"></ul>			
 											<script>
-											 $("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
-													// 화면으로부터 입력 받은 변수값의 처리 
-													 var bnoValue = '<c:out value="${board.bno}"/>';
-													var reply = $("#reply_text"); 
-													var replyer = "작성자"; 
-													var reply_Val = reply.val(); 
-
-													
-												//var reply = {
-															//reply:"댓글",
-												           // replyer:"작성자",
-												            //bno:bnoValue
-												         // };
-													console.log("eotrmf");
-													replyService.add({
-														reply:"댓글",
-											            replyer:"작성자",
-											            bno:bnoValue
-											          }, function(result){
-												        
-												        alert("result :"+result);
-												        console.log("eotrmf");
-												        document.getElementById("reply_text").value="";
-
-												       
-												        //showList(1);
-												       showList(1);
-												        
-												      });
-
-												     
-												      
-												    });
+											 function callRemove(rno,bnoValue){
+												 var token =$("meta[name='_csrf']").attr("content");
+													var header =$("meta[name='_csrf_header']").attr("content");
+												 var replyUL = $(".chat"+bnoValue);
+												 
+										     
+										     	  replyService.remove(header,token,rno, function(result){
+										     	      alert(result);
+										     	      showList(1,bnoValue,replyUL);
+										     	  });
+							     	  
+								}
+											function showList(page,bnoValue,replyUL){
+												
+												//var bnoValue = '<c:out value="${board.bno}"/>';
+												  //var replyUL = $(".chat<c:out value="${board.bno}"/>");
+											    replyService.getList({bno:bnoValue,page: page|| 1 }, function(list) {
+											    	
+											    	var str="";
+											    	if(list==null||list.length==0){
+											    		replyUL.html("");
+											    		
+											    		return;
+											    	}
+											    	
+											    	 for (var i = 0, len = list.length || 0; i < len; i++) {
+											    	       str +=" <table><tr><td><div  data-rno='"+list[i].rno+"'>";
+											    	       str +="  <div><div class='header'><strong class='primary-font'>["
+											    	    	   +list[i].replyer+"] </strong>"; 
+											    	       str +="    <small class='pull-right text-muted'>"
+											    	           +list[i].replyDate+"</small></div>";
+											    	       str +="    <p>"+list[i].reply+"</p><p style='text-align:right' id='reply_remove<c:out value='${board.bno}'/>' name='reply_text'><a href='javascript:callRemove("+list[i].rno+","+bnoValue+");'>삭제</a>&nbsp;&nbsp;</p></div></div><tr><td></table>";
+											    	       console.log(list[i]);
+											    	     }
+											    	 replyUL.html(str);
+											    	});
+											    }
 											$(document).ready(function () {
 												
-												  var bnoValue = '<c:out value="${board.bno}"/>';
+												var bnoValue = '<c:out value="${board.bno}"/>';
 												  var replyUL = $(".chat<c:out value="${board.bno}"/>");
 												  
-												    showList(1);
-												    
-												function showList(page){
-																	
-												    
-												    replyService.getList({bno:bnoValue,page: page|| 1 }, function(list) {
-												    	
-												    	var str="";
-												    	if(list==null||list.length==0){
-												    		replyUL.html("");
-												    		
-												    		return;
-												    	}
-												    	
-												    	 for (var i = 0, len = list.length || 0; i < len; i++) {
-												    	       str +="<div class='left clearfix' data-rno='"+list[i].rno+"'>";
-												    	       str +="  <div><div class='header'><strong class='primary-font'>["
-												    	    	   +list[i].rno+"] "+list[i].replyer+"....."+bnoValue+"....."+i+"</strong>"; 
-												    	       str +="    <small class='pull-right text-muted'>"
-												    	           +list[i].replyDate+"</small></div>";
-												    	       str +="    <p>"+list[i].reply+"</p></div></div>";
-												    	       console.log(list[i]);
-												    	     }
-												    	 replyUL.html(str);
-												    	});
-												    }
+												    showList(1,bnoValue,replyUL);
 											});
-										
+											$("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
+												// 화면으로부터 입력 받은 변수값의 처리 
+												
+												var reply = $("#reply_text<c:out value="${board.bno}"/>"); 
+												var replyer = "작성자"; 
+												var reply_Val = reply.val(); 
+												var token =$("meta[name='_csrf']").attr("content");
+												var header =$("meta[name='_csrf_header']").attr("content");
+												var bnoValue = '<c:out value="${board.bno}"/>';
+												  var replyUL = $(".chat<c:out value="${board.bno}"/>");
+
+												
+											//var reply = {
+														//reply:"댓글",
+											           // replyer:"작성자",
+											            //bno:bnoValue
+											         // };
+												replyService.add(header,token,{
+													reply:reply_Val,
+										            replyer:"작성자",
+										            bno:bnoValue
+										          }, function(result){
+											        
+											        alert("result :"+result);
+											        reply.val("");
+
+											       
+											        //showList(1);
+											       showList(1,bnoValue,replyUL);
+											        
+											      });
+
+											     
+											      
+											    });
+											
+											
 											</script>
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<script type="text/javascript">
@@ -177,6 +191,8 @@
 											</script>
                                                </div>
                                           </div>
+                                          </div>
+                                          
                                           <!---->
                                          
 									              
