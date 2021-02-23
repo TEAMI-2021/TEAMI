@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <!-- 글쓰기 페이지 -->
 <title>글쓰기</title>
 		<meta charset="utf-8" />
@@ -114,6 +116,8 @@ $(document).ready(function(){
 */	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	var maxSize = 5242880;
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	function checkExtension(fileName, fileSize){
 		
@@ -152,7 +156,9 @@ $(document).ready(function(){
 			data: formData,
 			type: 'POST',
 			dataType: 'json',
-
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			}
 			success: function(result){
 				console.log(result);
 				
