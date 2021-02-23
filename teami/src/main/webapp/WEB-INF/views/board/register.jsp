@@ -158,7 +158,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			beforeSend : function(xhr){
 				xhr.setRequestHeader(header, token);
-			}
+			},
 			success: function(result){
 				console.log(result);
 				
