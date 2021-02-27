@@ -53,7 +53,7 @@ var replyService = (function() {
 
 	    var bno = param.bno;
 	    var page = param.page || 1;
-	    
+
 	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
 	        function(data) {
 	    	

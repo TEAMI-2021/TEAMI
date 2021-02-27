@@ -43,16 +43,17 @@ public class ReplyController {
 		// 삼항 연산자 처리
 	}
 	
-	@GetMapping(value="/pages/{bno}/{page}",
+	@GetMapping(value="/pages/{room_code}/{bno}/{page}",
 			produces= {
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<ReplyVO>> getList(
 			@PathVariable("page") int page,
+			@PathVariable("room_code")String room_code,
 			@PathVariable("bno") Long bno) {
 		
 		log.info("getList....................");
-		Criteria cri = new Criteria(page, 10);
+		Criteria cri = new Criteria(page, 10, room_code);
 		log.info(cri);
 		
 		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);

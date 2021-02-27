@@ -22,62 +22,63 @@ public class ReplyMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;
-//	
-//	@Test
-//	public void testMapper() {
-//		
-//		log.info(mapper);
-//	}
+	
+	@Test
+	public void testMapper() {
+		
+		log.info(mapper);
+	}
 	
 	// 테스트 전에 해당 번호의 게시물이 존재하는지 반드시 확인할 것
 	private Long[] bnoArr = {15L, 14L, 13L, 12L, 11L};
-//	
-//	@Test
-//	public void testCreate() {
-//		IntStream.rangeClosed(1, 10).forEach(i -> {
-//			
-//			ReplyVO vo = new ReplyVO();
-//			
-//			// 게시물의 번호
-//			vo.setBno(bnoArr[i % 5]);
-//			vo.setReply("댓글 테스트 " + i);
-//			vo.setReplyer("replyer " + i);
-//			
-//			mapper.insert(vo);
-//		});
-//	}
-//	
-//	@Test
-//	public void testRead() {
-//		
-//		Long targetRno = 5L;
-//		
-//		ReplyVO vo = mapper.read(targetRno);
-//		
-//		log.info(vo);
-//	}
-//	
-//	@Test
-//	public void testDelete() {
-//		
-//		Long targetRno = 2L;
-//		
-//		mapper.delete(targetRno);
-//	}
-//	
-//	@Test
-//	public void testUpdate() {
-//		
-//		Long targetRno = 10L;
-//		
-//		ReplyVO vo = mapper.read(targetRno);
-//		
-//		vo.setReply("Update Reply");
-//		
-//		int count = mapper.update(vo);
-//		
-//		log.info("UPDATE COUNT: " + count);
-//	}
+	
+	@Test
+	public void testCreate() {
+		IntStream.rangeClosed(1, 10).forEach(i -> {
+			
+			ReplyVO vo = new ReplyVO();
+			
+			// 게시물의 번호
+			vo.setBno(bnoArr[i % 5]);
+			vo.setRoom_code("906");
+			vo.setReply("댓글 테스트 " + i);
+			vo.setReplyer("replyer " + i);
+			
+			mapper.insert(vo);
+		});
+	}
+	
+	@Test
+	public void testRead() {
+		
+		Long targetRno = 5L;
+		
+		ReplyVO vo = mapper.read(targetRno);
+		
+		log.info(vo);
+	}
+	
+	@Test
+	public void testDelete() {
+		
+		Long targetRno = 2L;
+		
+		mapper.delete(targetRno);
+	}
+	
+	@Test
+	public void testUpdate() {
+		
+		Long targetRno = 10L;
+		
+		ReplyVO vo = mapper.read(targetRno);
+		
+		vo.setReply("Update Reply");
+		
+		int count = mapper.update(vo);
+		
+		log.info("UPDATE COUNT: " + count);
+	}
 	
 	@Test
 	public void testList() {
