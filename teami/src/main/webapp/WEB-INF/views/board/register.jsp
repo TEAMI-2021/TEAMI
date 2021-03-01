@@ -49,8 +49,8 @@
 															</div>
 															<!-- Break -->
 															<div class="col-6 col-12-small">
-																<input type="checkbox" id="demo-copy" name="demo-copy">
-																<label for="demo-copy">공지&nbsp;&nbsp;</label></div>
+																<input type="checkbox" id="notify" name="notify">
+																<label for="notify">공지&nbsp;&nbsp;</label></div>
 																<div>
 																<a href="#" class="button icon solid fa-download">첨부파일</a>
 															</div>

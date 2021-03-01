@@ -48,14 +48,15 @@
 		SELECT count(*) FROM room_table WHERE room_code=#{user_code}
 	</select>
 	
+	<!-- DATETIME, CURRENT_TIMESTAMP 주의 하기 -->
 	<update id="createRoomBoard" parameterType="java.lang.String">
 		CREATE TABLE IF NOT EXISTS board_${room_code} (
 			bno INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			title VARCHAR(200) NOT NULL,
 			content VARCHAR(2000) NOT NULL,
 			writer VARCHAR(50) NOT NULL,
-			regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
-			updatedate DATETIME DEFAULT CURRENT_TIMESTAMP
+			regdate DATETIME DEFAULT CURRENT_TIMESTAMP, 
+			updatedate DATETIME DEFAULT CURRENT_TIMESTAMP 
 			);
 	</update>
 	
