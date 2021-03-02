@@ -50,11 +50,11 @@ var replyService = (function() {
 	
 
 	function getList(param, callback, error) {
-
+        var room=param.room;
 	    var bno = param.bno;
 	    var page = param.page || 1;
 
-	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+        $.getJSON("/replies/pages/" + room +"/"+bno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {

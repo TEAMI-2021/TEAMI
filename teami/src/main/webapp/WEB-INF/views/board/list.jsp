@@ -81,7 +81,6 @@
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
-									                <a href="#">댓글</a>&nbsp;&nbsp;
 									                <c:choose>
 									                	<c:when test="${room_code==null}">
 									                		 <a href="/board/modify?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
@@ -97,8 +96,8 @@
 									              <div id="comments">
                                          <div class="comment_row">
                                          
-                                               <textarea id="reply_text<c:out value="${board.bno}"/>" name="reply_text"></textarea>
-                                               <button id="addReplyBtn<c:out value="${board.bno}"/>" class="btn btn-primary btn-xs pull-right" type="submit">댓글 쓰기</button>
+                                             <textarea id="reply_text<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" name="reply_text"></textarea>
+                                            <button id="addReplyBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn btn-primary btn-xs pull-right" type="submit">댓글 쓰기</button>
                                                
 									                  <!-- /.panel -->
 												    <div class="panel panel-default">
@@ -112,25 +111,26 @@
       
 									              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 														<script src="${pageContext.request.contextPath}/resources/assets/js/reply.js"></script>
-											<ul class="chat<c:out value="${board.bno}"/>"></ul>			
+                                            <ul class="chat<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>"></ul>                        		
 											<script>
-											 function callRemove(rno,bnoValue){
+											 function callRemove(rno,bnoValue,roomCode){
 												 var token =$("meta[name='_csrf']").attr("content");
 													var header =$("meta[name='_csrf_header']").attr("content");
-												 var replyUL = $(".chat"+bnoValue);
-												 
+													 var replyUL = $(".chat"+roomCode+"_"+bnoValue);
+			
 										     
 										     	  replyService.remove(header,token,rno, function(result){
 										     	      alert(result);
-										     	      showList(1,bnoValue,replyUL);
+										     	     showList(roomCode,1,bnoValue,replyUL);
 										     	  });
+										     	 showList(roomCode,1,bnoValue,replyUL);
 							     	  
 								}
-											function showList(page,bnoValue,replyUL){
+                                             function showList(roomCode,page,bnoValue,replyUL){
 												
 												//var bnoValue = '<c:out value="${board.bno}"/>';
 												  //var replyUL = $(".chat<c:out value="${board.bno}"/>");
-											    replyService.getList({bno:bnoValue,page: page|| 1 }, function(list) {
+                                                replyService.getList({room:roomCode,bno:bnoValue,page: page|| 1 }, function(list) {
 											    	
 											    	var str="";
 											    	if(list==null||list.length==0){
@@ -142,10 +142,10 @@
 											    	 for (var i = 0, len = list.length || 0; i < len; i++) {
 											    	       str +=" <table><tr><td><div  data-rno='"+list[i].rno+"'>";
 											    	       str +="  <div><div class='header'><strong class='primary-font'>["
-											    	    	   +list[i].replyer+"] </strong>"; 
+                                                               +list[i].replyer+list[i].room_code+"] </strong>"; 
 											    	       str +="    <small class='pull-right text-muted'>"
 											    	           +list[i].replyDate+"</small></div>";
-											    	       str +="    <p>"+list[i].reply+"</p><p style='text-align:right' id='reply_remove<c:out value='${board.bno}'/>' name='reply_text'><a href='javascript:callRemove("+list[i].rno+","+bnoValue+");'>삭제</a>&nbsp;&nbsp;</p></div></div><tr><td></table>";
+                                                               str +="    <p>"+list[i].reply+"</p><p style='text-align:right' id='reply_remove<c:out value='${board.room_code}'/>_<c:out value='${board.bno}'/>' name='reply_text'><a href='javascript:callRemove("+list[i].rno+","+bnoValue+","+roomCode+");'>삭제</a>&nbsp;&nbsp;</p></div></div><tr><td></table>";
 											    	       console.log(list[i]);
 											    	     }
 											    	 replyUL.html(str);
@@ -154,20 +154,22 @@
 											$(document).ready(function () {
 												
 												var bnoValue = '<c:out value="${board.bno}"/>';
-												  var replyUL = $(".chat<c:out value="${board.bno}"/>");
-												  
-												    showList(1,bnoValue,replyUL);
+                                                var roomCode='<c:out value="${board.room_code}"/>'
+                                                    var replyUL = $(".chat<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>");
+                                                showList(roomCode,1,bnoValue,replyUL);
+
 											});
-											$("#addReplyBtn<c:out value="${board.bno}"/>").on("click", function(e){
+                                            $("#addReplyBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").on("click", function(e){
 												// 화면으로부터 입력 받은 변수값의 처리 
 												
-												var reply = $("#reply_text<c:out value="${board.bno}"/>"); 
+                                                var reply = $("#reply_text<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>"); 
 												var replyer = "작성자"; 
 												var reply_Val = reply.val(); 
 												var token =$("meta[name='_csrf']").attr("content");
 												var header =$("meta[name='_csrf_header']").attr("content");
 												var bnoValue = '<c:out value="${board.bno}"/>';
-												  var replyUL = $(".chat<c:out value="${board.bno}"/>");
+												var roomCode='<c:out value="${board.room_code}"/>';
+                                                var replyUL = $(".chat<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>");
 
 												
 											//var reply = {
@@ -178,7 +180,8 @@
 												replyService.add(header,token,{
 													reply:reply_Val,
 										            replyer:"작성자",
-										            bno:bnoValue
+										            bno:bnoValue,										            
+										            room_code:roomCode
 										          }, function(result){
 											        
 											        alert("result :"+result);
@@ -186,7 +189,7 @@
 
 											       
 											        //showList(1);
-											       showList(1,bnoValue,replyUL);
+											        showList(roomCode,1,bnoValue,replyUL);
 											        
 											      });
 
@@ -272,7 +275,6 @@
 					
 
 		<!-- Scripts -->
-<<<<<<< HEAD
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/browser.min.js"></script>
 			<script src="/resources/assets/js/breakpoints.min.js"></script>
@@ -304,13 +306,7 @@
 					actionForm.find("input[name='pageNum']").val(targetPage);
 					actionForm.submit();
 				});
-=======
-		
 
-
-
- 
->>>>>>> 9c228cfd35166f4b5e6df30f4daff2d904e83db5
 
 		});
 		</script>
