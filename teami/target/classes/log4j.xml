@@ -31,6 +31,25 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+	
+	
+	<logger name="org.teami.controller">
+        <level value="info" />
+    </logger>
+    <logger name="org.teami.domain">
+        <level value="info" />
+    </logger>
+    <logger name="org.teami.mapper">
+        <level value="info" />
+    </logger>
+    <logger name="org.teami.security">
+        <level value="info" />
+    </logger>
+    <logger name="org.teami.service">
+        <level value="info" />
+    </logger>
+    
 
 	<!-- Root Logger -->
 	<root>

@@ -42,7 +42,7 @@
 															</div>
 															<!-- Break -->
 															<div class="col-12">
-																<select name="room_code" id="demo-category">
+																<select name="room_code" id="room_code">
 																	<option value="">- 팀선택 -</option>
 																	<c:forEach items="${roomList}" var="room">
 																		<option value="${room.room_code}"><c:out value="${room.room_name}"/>(방코드: <c:out value="${room.room_code}"/>)</option>
@@ -104,10 +104,13 @@
 
 $(document).ready(function(){
 
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+	
 	console.log("register page");
 
 	
-	var formObj = $("form[role='form']");
+	var formObj = $("form[role='ROLE_MEMBER']");
 	
 	$("input[type='submit']").on("click", function(e){
 		
@@ -128,14 +131,27 @@ $(document).ready(function(){
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
 		});
 		formObj.append(str).submit();
+		
+		$.ajax({
+			url: '/board/register',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType: 'text',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(result){
+				console.log(result);
+				//showUploadResult(result);	//업로드 결과 처리 함수
+			}
+		});
 	});
 	
 	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	var maxSize = 5242880;
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	
+
 	function checkExtension(fileName, fileSize){
 		
 		if(fileSize >= maxSize){

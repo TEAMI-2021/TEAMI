@@ -24,10 +24,10 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	// spring 4.3 �씠�긽�뿉�꽌 �옄�룞 泥섎━
 
-//	@Setter(onMethod_ = @Autowired)
-//	private BoardAttachMapper attachMapper;
-//	
-//	@Transactional
+	@Setter(onMethod_ = @Autowired)
+	private BoardAttachMapper attachMapper;
+	
+	@Transactional
 	@Override
 	public void register(BoardVO board) {
 		
@@ -35,15 +35,15 @@ public class BoardServiceImpl implements BoardService {
 		
 		mapper.insertSelectKey(board);
 		
-//		if(board.getAttachList() == null || board.getAttachList().size() <= 0) {
-//			return;
-//		}
-//		
-//		board.getAttachList().forEach(attach ->{
-//			
-//			attach.setBno(board.getBno());
-//			attachMapper.insert(attach);
-//		});
+		if(board.getAttachList() == null || board.getAttachList().size() <= 0) {
+			return;
+		}
+		
+		board.getAttachList().forEach(attach ->{
+			
+			attach.setBno(board.getBno());
+			attachMapper.insert(attach);
+		});
 	}
 
 	@Override

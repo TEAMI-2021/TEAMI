@@ -112,9 +112,9 @@ public class BoardController{
 		log.info("=============================================");
 		log.info("register: " + board);
 		
-//		if(board.getAttachList() != null) {
-//			board.getAttachList().forEach(attach -> log.info(attach));
-//		}
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach -> log.info(attach));
+		}
 		
 		log.info("=============================================");
 		
