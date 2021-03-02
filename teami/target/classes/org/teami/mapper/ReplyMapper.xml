@@ -24,7 +24,7 @@
 	<select id="getListWithPaging" resultType="org.teami.domain.ReplyVO">
 		select *
 		from tbl_reply
-		where bno = #{bno}
+		where bno = #{bv.bno} and room_code=#{bv.room_code}
 		order by rno asc
 	</select>
 		

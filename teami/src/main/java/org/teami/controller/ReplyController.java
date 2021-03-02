@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.teami.domain.BoardReadVO;
 import org.teami.domain.Criteria;
 import org.teami.domain.ReplyVO;
 import org.teami.service.ReplyService;
@@ -55,8 +56,10 @@ public class ReplyController {
 		log.info("getList....................");
 		Criteria cri = new Criteria(page, 10, room_code);
 		log.info(cri);
-		
-		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK);
+		BoardReadVO bv = new BoardReadVO();
+		bv.setBno(bno);
+		bv.setRoom_code(room_code);
+		return new ResponseEntity<>(service.getList(cri, bv), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/{rno}",

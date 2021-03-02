@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.teami.domain.BoardReadVO;
 import org.teami.domain.Criteria;
 import org.teami.domain.ReplyVO;
 import org.teami.mapper.ReplyMapper;
@@ -52,9 +53,9 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<ReplyVO> getList(Criteria cri, Long bno) {
-		log.info("get Reply List of a Board: " + bno);
+	public List<ReplyVO> getList(Criteria cri, BoardReadVO bv) {
+		log.info("get Reply List of a Board: " + bv);
 		
-		return mapper.getListWithPaging(cri, bno);
+		return mapper.getListWithPaging(cri, bv);
 	}
 }

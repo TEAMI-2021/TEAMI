@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.teami.domain.BoardReadVO;
+import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
 import org.teami.domain.ReplyVO;
 
@@ -84,8 +86,10 @@ public class ReplyMapperTests {
 	public void testList() {
 		
 		Criteria cri = new Criteria();
-		
-		List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
+		BoardReadVO bv = new BoardReadVO();
+		bv.setBno(13L);
+		bv.setRoom_code("906");
+		List<ReplyVO> replies = mapper.getListWithPaging(cri, bv);
 		
 		replies.forEach(reply -> log.info(reply));
 	}
