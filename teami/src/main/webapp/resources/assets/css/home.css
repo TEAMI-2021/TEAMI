@@ -29,4 +29,7 @@ table{
 	margin-right: auto;
 	text-align: right;
 }
+#id_duplicate_check{
+	color: black;
+}
 
