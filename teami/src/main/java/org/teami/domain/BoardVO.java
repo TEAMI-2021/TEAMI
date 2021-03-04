@@ -9,7 +9,7 @@ import lombok.Data;
 public class BoardVO {
 	
 //	long이던 int이던 상관없음 왜?
-	private long bno;
+	private Long bno;
 	private String title;
 	private String content;
 	private String writer;
