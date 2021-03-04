@@ -35,7 +35,7 @@
 										<!-- Form -->
 													<!-- Form -->
 													<h3>글쓰기</h3>
-													<form method="post" action="/board/register">
+													<form method="post" action="/board/register" id="form">
 														<div class="row gtr-uniform">
 															<div class="col-12">
 																<input type="text" name="title" value="" placeholder="글제목" />
@@ -58,8 +58,6 @@
 																
 																<input type="file" name='uploadFile' multiple>
 																<div class='uploadResult'>
-																	<ul>
-																	</ul>
 																</div>
 																
 															</div>
@@ -110,7 +108,7 @@ $(document).ready(function(){
 	console.log("register page");
 
 	
-	var formObj = $("form[role='ROLE_MEMBER']");
+	var formObj = $("#form");
 	
 	$("input[type='submit']").on("click", function(e){
 		
@@ -213,7 +211,7 @@ $(document).ready(function(){
 	});
 	
 	$("input[type='file']").change(function(e){
-		
+		console.log("dddddd");
 		var formData = new FormData();
 		
 		var inputFile = $("input[name='uploadFile']");
@@ -228,6 +226,7 @@ $(document).ready(function(){
 				return false;
 			}		
 			formData.append("uploadFile", files[i]);
+			console.log("여기기ㅣㅣ");
 		}
 		
 		$.ajax({
