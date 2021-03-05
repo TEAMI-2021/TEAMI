@@ -11,8 +11,13 @@
 		<header id="header">
 			<!-- Search -->
 			<section id="search" class="alt">
-				<form method="post" action="#">
-				<input type="text" name="query" id="query" placeholder="Search" />
+				<form id = 'searchForm' method="get" action="/board/list">
+					<input type="hidden" name="type" value = "TC">
+					<input type="text" name="keyword" placeholder="Search" />
+					<button class='button small'>Search</button>
+					<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}">
+					<input type="hidden" name="amount" value = "${pageMaker.cri.amount}">
+					
 				</form>
 			</section>
 										
@@ -22,5 +27,20 @@
 				<li><a href="index.html" class="logo"><strong>ID</strong> 님 반갑습니다! </a><a href="#" class="button small">로그아웃</a></li>
 			</ul>								
 		</header>
+		<script type = "text/javascript">
+			$(document).ready(function(){
+				var searchForm = $("#searchForm");
+			
+				$('#searchForm button').on("click", function(e){
+					if(!searchForm.find("input[name='keyword']").val()){
+						alert("검색어를 입력하세요");
+						return false;
+					}
+					searchForm.find("input[name='pageNum']").val("1");
+					e.preventDefault();
+					searchForm.submit();
+				});
+		});
+		</script>
 	</body>
 </html>

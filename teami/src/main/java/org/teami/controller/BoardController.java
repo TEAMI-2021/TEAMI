@@ -60,7 +60,13 @@ public class BoardController{
 			for(int i=0; i<roomList.size(); i++) {
 				String room=roomList.get(i).getRoom_code();
 				cri.setRoom_code(room);
-				boardList.addAll(service.getList(room));
+				if(cri.getKeyword()==null) {
+					boardList.addAll(service.getList(room));
+					
+				}
+				else {
+					boardList.addAll(service.getSearch(cri));
+				}
 				for(int j = total; j<boardList.size(); j++) {
 					boardList.get(j).setRoom_code(room);
 				}

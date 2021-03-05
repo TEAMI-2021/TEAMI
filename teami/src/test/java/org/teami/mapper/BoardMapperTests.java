@@ -103,17 +103,18 @@ public class BoardMapperTests {
 		list.forEach(board -> log.info(board.getBno()));
 	}
 
-	/*
+	
 	@Test
 	public void testSearch() {
 		
 		Criteria cri = new Criteria();
-		cri.setKeyword("4");
-		cri.setType("TC");;
+		cri.setKeyword("컴퓨터");
+		cri.setType("TC");
+		cri.setRoom_code("793");
 		
 		List<BoardVO> list = mapper.getSearch(cri);
 		
 		list.forEach(board -> log.info(board));
 	}
-	*/
+	
 }
