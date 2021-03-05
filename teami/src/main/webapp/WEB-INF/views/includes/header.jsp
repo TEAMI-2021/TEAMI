@@ -16,8 +16,8 @@
 					<input type="hidden" name="type" value = "TC">
 					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder="Search" />
 					<button class='button small'>Search</button>
-					<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}">
-					<input type="hidden" name="amount" value = "${pageMaker.cri.amount}">
+					<input type="hidden" name="pageNum" value = "${cri.pageNum}">
+					<input type="hidden" name="amount" value = "${cri.amount}">
 					
 				</form>
 			</section>

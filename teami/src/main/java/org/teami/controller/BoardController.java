@@ -83,6 +83,7 @@ public class BoardController{
 			model.addAttribute("room_code", null);
 			model.addAttribute("list", boardList2);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			model.addAttribute("cri", cri);
 		}
 		else {
 			log.info("list: " + cri);
@@ -120,6 +121,7 @@ public class BoardController{
 		model.addAttribute("board", service.get(br));
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 		model.addAttribute("room", roomService.get(room_code));
+		model.addAttribute(cri);
 	}
 
 	@PostMapping("/modify")
@@ -135,6 +137,7 @@ public class BoardController{
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
+
 		
 		return "redirect:/board/list?room_code="+board.getRoom_code();
 	}
@@ -161,8 +164,9 @@ public class BoardController{
 	}
 	
 	@GetMapping("/register")
-	public void register(Principal principal, Model model) {
+	public void register(Principal principal, @ModelAttribute("cri") Criteria cri, Model model) {
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
+		model.addAttribute(cri);
 	}
 	
 	
