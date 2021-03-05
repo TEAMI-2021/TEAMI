@@ -45,7 +45,7 @@
 	</insert>
 	
 	<select id="roomChk" resultType="int">
-		SELECT count(*) FROM room_table WHERE room_code=#{user_code}
+		SELECT count(*) FROM room_table WHERE room_code=#{room_code}
 	</select>
 	
 	<update id="createRoomBoard" parameterType="java.lang.String">

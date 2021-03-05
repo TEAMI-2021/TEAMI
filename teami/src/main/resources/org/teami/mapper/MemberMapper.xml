@@ -37,4 +37,9 @@
 		insert into user_auth(user_id, auth)
 		values(#{user_id}, #{auth})
 	</insert>
+	
+	
+	<select id="memberChk" resultType="int">
+		SELECT count(*) FROM user_table WHERE user_id=#{user_id}
+	</select>
 </mapper>

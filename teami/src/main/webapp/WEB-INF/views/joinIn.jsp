@@ -59,7 +59,7 @@
 
 </body>
 </html>
-
+<!-- 
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#myModal2").modal("show");
@@ -71,3 +71,4 @@ $(document).ready(function(){
 
 
 </script>
+ -->

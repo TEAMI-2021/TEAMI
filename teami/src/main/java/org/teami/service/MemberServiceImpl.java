@@ -34,4 +34,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	@Override
+	public int memberChk(String user_id) {
+		return mapper.memberChk(user_id);
+	}
+	
+	
 }

@@ -27,7 +27,7 @@ public class RoomController {
 		log.info("방 등록......"+room);
 		
 		
-		service.register(room);;
+		service.register(room);
 		
 		rttr.addFlashAttribute("result", room.getRoom_code());
 		

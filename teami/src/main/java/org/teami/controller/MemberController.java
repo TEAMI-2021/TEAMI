@@ -23,9 +23,18 @@ public class MemberController {
 	@PostMapping("/joinIn")
 	public String joinIn(MemberVO member, RedirectAttributes rttr) {
 		
-		service.joinIn(member);
-		
-		return "redirect:/";
+		int result = service.memberChk(member.getUser_id());
+		if(result==0) {
+
+			rttr.addFlashAttribute("result", result);
+			service.joinIn(member);
+		}
+		else if(result==1){
+
+			rttr.addFlashAttribute("result", result);
+			return "redirect:/joinIn";
+		}
+		return "redirect:/customLogin";
 	}
 	
 	@GetMapping("/joinIn")
@@ -58,5 +67,10 @@ public class MemberController {
 	@GetMapping("/customLogout")
 	public void logoutGET() {
 		log.info("custom logout");
+	}
+	
+	@GetMapping("/duplicateId")
+	public void duplicateId() {
+		
 	}
 }
