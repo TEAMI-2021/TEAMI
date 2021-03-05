@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,7 +14,7 @@
 			<section id="search" class="alt">
 				<form id = 'searchForm' method="get" action="/board/list">
 					<input type="hidden" name="type" value = "TC">
-					<input type="text" name="keyword" placeholder="Search" />
+					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder="Search" />
 					<button class='button small'>Search</button>
 					<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}">
 					<input type="hidden" name="amount" value = "${pageMaker.cri.amount}">
