@@ -25,4 +25,6 @@ public interface BoardService {
 	public int getTotal(Criteria cri);
 	
 	public int getNoticeTotal(Criteria cri);
+
+	public List<BoardVO> getSearch(Criteria cri);
 }

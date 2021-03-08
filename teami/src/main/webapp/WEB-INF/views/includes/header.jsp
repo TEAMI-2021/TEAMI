@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,8 +13,13 @@
 		<header id="header">
 			<!-- Search -->
 			<section id="search" class="alt">
-				<form method="post" action="#">
-				<input type="text" name="query" id="query" placeholder="Search" />
+				<form id = 'searchForm' method="get" action="/board/list">
+					<input type="hidden" name="type" value = "TC">
+					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder="Search" />
+					<button class='button small'>Search</button>
+					<input type="hidden" name="pageNum" value = "${cri.pageNum}">
+					<input type="hidden" name="amount" value = "${cri.amount}">
+					
 				</form>
 			</section>
 										
@@ -23,5 +29,20 @@
 				<li><a href="index.html" class="logo"><strong><sec:authentication property = "principal.username"/></strong> 님 반갑습니다! </a><a href="#" class="button small">로그아웃</a></li>
 			</ul>								
 		</header>
+		<script type = "text/javascript">
+			$(document).ready(function(){
+				var searchForm = $("#searchForm");
+			
+				$('#searchForm button').on("click", function(e){
+					if(!searchForm.find("input[name='keyword']").val()){
+						alert("검색어를 입력하세요");
+						return false;
+					}
+					searchForm.find("input[name='pageNum']").val("1");
+					e.preventDefault();
+					searchForm.submit();
+				});
+		});
+		</script>
 	</body>
 </html>

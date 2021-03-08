@@ -60,7 +60,13 @@ public class BoardController{
 			for(int i=0; i<roomList.size(); i++) {
 				String room=roomList.get(i).getRoom_code();
 				cri.setRoom_code(room);
-				boardList.addAll(service.getList(room));
+				if(cri.getKeyword()==null) {
+					boardList.addAll(service.getList(room));
+					
+				}
+				else {
+					boardList.addAll(service.getSearch(cri));
+				}
 				for(int j = total; j<boardList.size(); j++) {
 					boardList.get(j).setRoom_code(room);
 				}
@@ -77,6 +83,7 @@ public class BoardController{
 			model.addAttribute("room_code", null);
 			model.addAttribute("list", boardList2);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			model.addAttribute("cri", cri);
 		}
 		else if(notice==null){
 			log.info("list: " + cri);
@@ -122,6 +129,7 @@ public class BoardController{
 		model.addAttribute("board", service.get(br));
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 		model.addAttribute("room", roomService.get(room_code));
+		model.addAttribute(cri);
 	}
 
 	@PostMapping("/modify")
@@ -137,6 +145,7 @@ public class BoardController{
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
+
 		
 		return "redirect:/board/list?room_code="+board.getRoom_code();
 	}
@@ -163,8 +172,9 @@ public class BoardController{
 	}
 	
 	@GetMapping("/register")
-	public void register(Principal principal, Model model) {
+	public void register(Principal principal, @ModelAttribute("cri") Criteria cri, Model model) {
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
+		model.addAttribute(cri);
 	}
 	
 	

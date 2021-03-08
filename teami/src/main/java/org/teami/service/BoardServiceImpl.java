@@ -73,7 +73,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getTotal(Criteria cri) {
 		log.info("get total count");
-		return mapper.getTotalCount(cri);
+		if(cri.getKeyword()==null) {
+			return mapper.getTotalCount(cri);
+		}else {
+			return mapper.getTotalSearchCount(cri);
+		}
+		
+	}
+
+	@Override
+	public List<BoardVO> getSearch(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getSearch(cri);
 	}
 
 	@Override
