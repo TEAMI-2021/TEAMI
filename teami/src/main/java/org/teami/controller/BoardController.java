@@ -113,7 +113,7 @@ public class BoardController{
 		log.info("register: " + board);
 		
 		if(board.getAttachList() != null) {
-			board.getAttachList().forEach(attach -> log.info(attach));
+			board.getAttachList().forEach(attach -> attach.setRoom_code(board.getRoom_code()));
 		}
 		
 		log.info("=============================================");

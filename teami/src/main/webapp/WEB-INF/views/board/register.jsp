@@ -104,7 +104,6 @@ $(document).ready(function(){
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");	
-	
 	console.log("register page");
 
 	
@@ -118,7 +117,7 @@ $(document).ready(function(){
 		
 		var str = "";
 		
-		$(".uploadResult").each(function(i, obj){
+		$(".uploadResult li").each(function(i, obj){
 			
 			var jobj = $(obj);
 			
