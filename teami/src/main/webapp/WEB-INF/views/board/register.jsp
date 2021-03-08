@@ -57,8 +57,8 @@
 																<!-- <a href="#" class="button icon solid fa-download">첨부파일</a> -->
 																
 																<input type="file" name='uploadFile' multiple>
-																<div class='uploadResult'>
-																</div>
+																<ul class='uploadResult'>
+																</ul>
 																
 															</div>
 															
@@ -118,7 +118,7 @@ $(document).ready(function(){
 		
 		var str = "";
 		
-		$(".uploadResult ul li").each(function(i, obj){
+		$(".uploadResult").each(function(i, obj){
 			
 			var jobj = $(obj);
 			
@@ -168,7 +168,7 @@ $(document).ready(function(){
 		
 		if(!uploadResultArr || uploadResultArr.length == 0){ return; }
 		
-		var uploadUL = $(".uploadResult ul");
+		var uploadUL = $(".uploadResult");
 		
 		var str = "";
 		

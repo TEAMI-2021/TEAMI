@@ -5,8 +5,8 @@
 <mapper namespace="org.teami.mapper.BoardAttachMapper">
 	
 	<insert id="insert">
-		insert into tbl_attach (uuid, uploadPath, fileName, bno)
-		values (#{uuid}, #{uploadPath}, #{fileName}, #{bno})
+		insert into tbl_attach (uuid, uploadPath, fileName, bno, room_code)
+		values (#{uuid}, #{uploadPath}, #{fileName}, #{bno},#{room_code})
 	</insert>
 	
 	<delete id="delete">
