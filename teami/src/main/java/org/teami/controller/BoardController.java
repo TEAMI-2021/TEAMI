@@ -177,5 +177,4 @@ public class BoardController{
 		model.addAttribute(cri);
 	}
 	
-	
 }

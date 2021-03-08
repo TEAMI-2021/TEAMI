@@ -41,7 +41,7 @@ public class MemberController {
 	}
 	
 	//login
-	@GetMapping("/customLogin")
+	@GetMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 		log.info("error: " + error);
 		log.info("logout: "+ logout);
@@ -57,6 +57,5 @@ public class MemberController {
 	
 	@GetMapping("/customLogout")
 	public void logoutGET() {
-		log.info("custom logout");
 	}
 }

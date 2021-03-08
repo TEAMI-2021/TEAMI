@@ -24,9 +24,12 @@
 			</section>
 										
 			<ul class="icons">
+				<form action="/customLogout" method="post">
 				<li><span><a href="/room/findRoom"><img src="${pageContext.request.contextPath}/resources/img/enter.png" alt="방입장" width="30px" height="37px"></a></span></li>
 				<li><span><a href="/room/newRoom"><img src="${pageContext.request.contextPath}/resources/img/create.png" alt="방생성" width="30px" height="37px"></a></span></li>
-				<li><a href="index.html" class="logo"><strong><sec:authentication property = "principal.username"/></strong> 님 반갑습니다! </a><a href="#" class="button small">로그아웃</a></li>
+				<li><a href="index.html" class="logo"><strong><sec:authentication property = "principal.username"/></strong> 님 반갑습니다! </a>
+				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+				<button class="button small">로그아웃</button></li></form>
 			</ul>								
 		</header>
 		<script type = "text/javascript">
