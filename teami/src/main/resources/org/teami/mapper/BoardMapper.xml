@@ -23,7 +23,7 @@
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
 <!--  			SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'tbl_board' AND table_schema = DATABASE() -->
-			SELECT case count(*) when 0 then 1 else max(bno) + 1 end bno FROM board_${room_code}
+			select (case count(*) when 0 then 1 else max(bno) + 1 end) as bno from board_${room_code}
 		</selectKey>
 		insert into board_${room_code} (bno, title, content, writer, notice)
 		values (#{bno}, #{title}, #{content}, #{writer}, #{notice})

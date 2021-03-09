@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <!-- 글쓰기 페이지 -->
 <title>글쓰기</title>
 		<meta charset="utf-8" />
@@ -33,14 +35,14 @@
 										<!-- Form -->
 													<!-- Form -->
 													<h3>글쓰기</h3>
-													<form method="post" action="/board/register">
+													<form method="post" action="/board/register" id="form">
 														<div class="row gtr-uniform">
 															<div class="col-12">
 																<input type="text" name="title" value="" placeholder="글제목" />
 															</div>
 															<!-- Break -->
 															<div class="col-12">
-																<select name="room_code" id="demo-category">
+																<select name="room_code" id="room_code">
 																	<option value="">- 팀선택 -</option>
 																	<c:forEach items="${roomList}" var="room">
 																		<option value="${room.room_code}"><c:out value="${room.room_name}"/>(방코드: <c:out value="${room.room_code}"/>)</option>
@@ -53,6 +55,16 @@
 																<label for="notice">공지&nbsp;&nbsp;</label></div>
 															<div>
 																<a href="#" class="button icon solid fa-download">첨부파일</a>
+=======
+																<input type="checkbox" id="demo-copy" name="demo-copy">
+																<label for="demo-copy">공지&nbsp;&nbsp;</label></div>
+															<div class="uploadDiv">
+																<!-- <a href="#" class="button icon solid fa-download">첨부파일</a> -->
+																
+																<input type="file" name='uploadFile' multiple>
+																<ul class='uploadResult'>
+																</ul>
+																
 															</div>
 															
 															<!-- Break -->
@@ -99,5 +111,160 @@
 					}
 				};
 			</script>
+
+
+
+<script>
+
+$(document).ready(function(){
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+	console.log("register page");
+
+	
+	var formObj = $("#form");
+	
+	$("input[type='submit']").on("click", function(e){
+		
+		e.preventDefault();
+		
+		console.log("submit clicked");
+		
+		var str = "";
+		
+		$(".uploadResult li").each(function(i, obj){
+			
+			var jobj = $(obj);
+			
+			console.dir(jobj);
+			
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		});
+		formObj.append(str).submit();
+		
+		$.ajax({
+			url: '/board/register',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType: 'text',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(result){
+				console.log(result);
+				//showUploadResult(result);	//업로드 결과 처리 함수
+			}
+		});
+	});
+	
+	
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	var maxSize = 5242880;
+
+	function checkExtension(fileName, fileSize){
+		
+		if(fileSize >= maxSize){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		
+		if(regex.test(fileName)){
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+	
+	function showUploadResult(uploadResultArr){
+		
+		if(!uploadResultArr || uploadResultArr.length == 0){ return; }
+		
+		var uploadUL = $(".uploadResult");
+		
+		var str = "";
+		
+		$(uploadResultArr).each(function(i, obj){
+			
+			var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+			var fileLink = fileCallPath.replace(new RegExp(/\\/g), "/");
+			
+			str += "<li ";
+			str += "data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' ><div>";
+			str += "<span> " + obj.fileName + "</span>";
+			str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button>";
+			str += "</div></li>";
+			
+		});
+		
+		uploadUL.append(str);
+	}
+	
+	$(".uploadResult").on("click", "button", function(e){
+		console.log("delete file");
+		
+		var targetFile = $(this).data("file");
+		
+		var targetLi = $(this).closest("li");
+		
+		$.ajax({
+			url: '/board/deleteFile',
+			data: {fileName: targetFile},
+			type: 'POST',
+			dataType: 'text',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(result){
+				alert(result);
+				targetLi.remove();
+			}
+		});
+	});
+	
+	$("input[type='file']").change(function(e){
+		console.log("dddddd");
+		var formData = new FormData();
+		
+		var inputFile = $("input[name='uploadFile']");
+		
+		var files = inputFile[0].files;
+		
+		//console.log(files);
+		
+		for(var i=0; i<files.length; i++){
+			
+			if(!checkExtension(files[i].name, files[i].size)){
+				return false;
+			}		
+			formData.append("uploadFile", files[i]);
+			console.log("여기기ㅣㅣ");
+		}
+		
+		$.ajax({
+			url: '/board/uploadAjaxAction',
+			processData: false,
+			contentType: false,
+			data: formData,
+			type: 'POST',
+			dataType: 'json',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
+			success: function(result){
+				console.log(result);
+				showUploadResult(result);	//업로드 결과 처리 함수
+			}
+		});
+	});
+
+});
+</script>
+
+
+
 	</body>
 </html>
