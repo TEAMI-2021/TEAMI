@@ -1,6 +1,7 @@
 package org.teami.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class BoardVO {
 	private Date updatedate;
 	private String room_code;
 	private char notice;
+	private List<BoardAttachVO> attachList;
 }

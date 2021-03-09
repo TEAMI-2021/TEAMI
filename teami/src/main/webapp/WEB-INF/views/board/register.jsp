@@ -53,15 +53,10 @@
 															<div class="col-6 col-12-small">
 																<input type="checkbox" id="notice" name="notice" onchange="YnCheck(this)">
 																<label for="notice">공지&nbsp;&nbsp;</label></div>
-															<div>
-																<a href="#" class="button icon solid fa-download">첨부파일</a>
-=======
-																<input type="checkbox" id="demo-copy" name="demo-copy">
-																<label for="demo-copy">공지&nbsp;&nbsp;</label></div>
 															<div class="uploadDiv">
 																<!-- <a href="#" class="button icon solid fa-download">첨부파일</a> -->
 																
-																<input type="file" name='uploadFile' multiple>
+																<input type="file" name='uploadFile' class="button icon solid fa-download" multiple>
 																<ul class='uploadResult'>
 																</ul>
 																
