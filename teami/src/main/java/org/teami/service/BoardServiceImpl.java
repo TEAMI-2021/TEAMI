@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.teami.domain.BoardAttachVO;
 import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
@@ -113,6 +114,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getNoticeTotal(Criteria cri) {
 		// TODO Auto-generated method stub
 		return mapper.getNoticeTotalCount(cri);
+	}
+
+	@Override
+	public List<BoardAttachVO> getAttachList(BoardReadVO br) {
+		// TODO Auto-generated method stub
+		return attachMapper.findByBno(br);
 	}
 	
 }

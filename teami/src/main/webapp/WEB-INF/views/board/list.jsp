@@ -19,15 +19,30 @@
 		<c:forEach items="${list}" var="board">
 		<script>
 		$(document).ready(function(){
+			var bno = '<c:out value="${board.bno}"/>';
+			var room_code = '<c:out value="${board.room_code}"/>';
+			$.getJSON("/board/getAttachList", {bno: bno, room_code: room_code}, function(arr){
+				console.log(arr);
+				var str="";
+				
+				$(arr).each(function(i, attach){
+					str += "<li ";
+					str += "data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<span> " + attach.fileName + "</span>";
+					str += "</div></li>";
+				});
+				$("#uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/> ul").html(str);
+			});
 			$("#spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").click(function(){
 				if($("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").is(":visible")){
 					$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideUp(); 
-					}
+				}
 				else{
-						$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideDown(); 
-						} 
-				}); 
-			}); 
+					$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideDown(); 
+				} 
+			});
+			
+		}); 
 		</script>
 		</c:forEach>
 
@@ -81,6 +96,9 @@
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
+											      	<div class = "uploadResult" id="uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>">
+											      		<ul></ul>
+											      	</div>
 									                <c:choose>
 									                	<c:when test="${room_code==null}">
 									                		 <a href="/board/modify?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
@@ -306,8 +324,13 @@
 					actionForm.find("input[name='pageNum']").val(targetPage);
 					actionForm.submit();
 				});
-
-
+				
+				$(".uploadResult").on("click", "li", function(e){
+					var liObj = $(this);
+					var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+					
+					self.location = "/board/download?fileName="+path
+				});
 		});
 		</script>
 	</body>
