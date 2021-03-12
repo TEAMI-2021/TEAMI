@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.teami.domain.MemberVO;
 import org.teami.service.MemberService;
@@ -69,8 +72,17 @@ public class MemberController {
 		log.info("custom logout");
 	}
 	
-	@GetMapping("/duplicateId")
-	public void duplicateId() {
+	@ResponseBody
+	@RequestMapping(value="/memberChk", method=RequestMethod.POST)
+	public int memberChk(MemberVO member, RedirectAttributes rttr) {
+		log.info(member.getUser_id());
 		
+		int result = service.memberChk(member.getUser_id());
+
+		rttr.addFlashAttribute("result", result);
+		log.info(result);
+		
+		return result;
+
 	}
 }
