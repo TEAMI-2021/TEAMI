@@ -21,4 +21,7 @@
 		select * from tbl_attach
 	</select>
 	
+	<delete id="deleteAll">
+		delete from tbl_attach where bno= #{bno} AND room_code = #{room_code}
+	</delete>
 </mapper>

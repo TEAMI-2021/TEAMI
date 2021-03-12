@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -183,8 +186,9 @@ public class BoardController{
 		BoardReadVO br = new BoardReadVO();
 		br.setBno(bno);
 		br.setRoom_code(room_code);
-		
+		List<BoardAttachVO> attachList = service.getAttachList(br);
 		if (service.remove(br)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 
@@ -330,5 +334,23 @@ public class BoardController{
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
+	
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		if(attachList == null || attachList.size()==0) {
+			return;
+		}
+		log.info("delete attach files......................");
+		log.info(attachList);
+		
+		attachList.forEach(attach->{
+			try {
+				Path file = Paths.get("C:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+				Files.deleteIfExists(file);
+				
+			}catch(Exception e){
+				log.error("delete file eroor"+e.getMessage());
+			}
+		});
 	}
 }

@@ -67,7 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	public boolean remove(BoardReadVO boardRead) {
 
 		log.info("remove................." + boardRead.getBno());
-		
+		attachMapper.deleteAll(boardRead);
 		return mapper.delete(boardRead) == 1;
 	}
 
