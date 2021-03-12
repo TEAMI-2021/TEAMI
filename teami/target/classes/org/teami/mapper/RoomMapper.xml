@@ -45,9 +45,10 @@
 	</insert>
 	
 	<select id="roomChk" resultType="int">
-		SELECT count(*) FROM room_table WHERE room_code=#{user_code}
+		SELECT count(*) FROM room_table WHERE room_code=#{room_code}
 	</select>
 	
+	<!-- DATETIME, CURRENT_TIMESTAMP 주의 하기 -->
 	<update id="createRoomBoard" parameterType="java.lang.String">
 		CREATE TABLE IF NOT EXISTS board_${room_code} (
 			bno INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -57,7 +58,6 @@
 			notice CHAR(1) DEFAULT 0,
 			regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
 			updatedate DATETIME DEFAULT CURRENT_TIMESTAMP
-			
 			);
 	</update>
 	

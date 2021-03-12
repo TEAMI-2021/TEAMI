@@ -121,6 +121,7 @@ $(document).ready(function(){
 	var formObj = $("#form");
 	
 	$("input[type='submit']").on("click", function(e){
+<<<<<<< HEAD
 		//여기가 경고창 띄우는 부분
 		if(!formObj.find("input[name='title']").val()){
 			alert("제목을 입력하세요");
@@ -134,6 +135,8 @@ $(document).ready(function(){
 			alert("글 내용을 작성하세요");
 			return false;
 		} 
+=======
+>>>>>>> 12b8c989c9daf1348e5cf9e719c9ba223fc7305d
 		
 		e.preventDefault();
 		
