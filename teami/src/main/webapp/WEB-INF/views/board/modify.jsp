@@ -125,7 +125,7 @@
 			$(".uploadResult").html(str);
 		});
 		
-		$(".uploadResult").on("click", "butoon", function(e){
+		$(".uploadResult").on("click", "button", function(e){
 			if(confirm("Remove this file? ")){
 				var targetLi = $(this).closest("li");
 				targetLi.remove();
