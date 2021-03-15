@@ -20,7 +20,13 @@
 		<script>
 		$(document).ready(function(){
 			var bno = '<c:out value="${board.bno}"/>';
-			var room_code = '<c:out value="${board.room_code}"/>';
+			if(${room_code==null}){
+				var room_code = '<c:out value="${board.room_code}"/>';
+			}else{
+				var room_code = '<c:out value="${room_code}"/>';
+			}
+			
+			
 			$.getJSON("/board/getAttachList", {bno: bno, room_code: room_code}, function(arr){
 				console.log(arr);
 				var str="";
@@ -84,7 +90,7 @@
 											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
 											    <c:choose>
 											    <c:when test="${room_code == null}">
-											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code }"/>)</div></strong>
+											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code}"/>)</div></strong>
 											    </c:when>
 											    <c:otherwise>
 											    	<strong><div><c:out value="${board.bno}"/></div></strong>
