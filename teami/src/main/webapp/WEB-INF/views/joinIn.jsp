@@ -30,7 +30,7 @@
                   
                </tr>
                <tr>
-                    <td>ID </td> <td> <input name="user_id" class="form-control"></input></td>
+                    <td>ID </td> <td> <input id="user_id" name="user_id" class="form-control"></input></td>
                     <td>  <button id="id_duplicate_check" onclick="fn_idChk();" value="N">중복체크</button></td>
                  </tr>
                  <tr>
@@ -70,10 +70,13 @@
 	   
 	   var token = $("meta[name='_csrf']").attr("content");
 	   var header = $("meta[name='_csrf_header']").attr("content");   
+	   
+	   var user_id = $("#user_id").val();
 	  
+	   console.log(user_id);
       $.ajax({
          url : "/memberChk",
-         type : "post",
+         type : "get",
          dataType : "json",
          data : {"user_id" : $("#user_id").val()},
          beforeSend : function(xhr)
@@ -81,6 +84,7 @@
              xhr.setRequestHeader(header,token);
          },
          success : function(result){
+        	 console.log(user_id);
         	console.log(result);
             if(result == 1){
                alert("중복된 아이디입니다.");

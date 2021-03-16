@@ -73,14 +73,14 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/memberChk", method=RequestMethod.POST)
-	public int memberChk(MemberVO member, RedirectAttributes rttr) {
-		log.info(member.getUser_id());
-		
-		int result = service.memberChk(member.getUser_id());
+	@RequestMapping(value="/memberChk", method=RequestMethod.GET)
+	public int memberChk(String user_id) {
 
-		rttr.addFlashAttribute("result", result);
-		log.info(result);
+		System.out.println(user_id);
+		
+		int result = service.memberChk(user_id);
+
+		System.out.println(result);
 		
 		return result;
 
