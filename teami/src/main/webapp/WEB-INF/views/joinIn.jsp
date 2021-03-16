@@ -19,7 +19,7 @@
 <body>
       <div class="centered">
       <div class="centered2">
-          <form role="form" action="/joinIn" method="post">
+          <form role="form" action="/joinIn" method="post" id="joinInForm">
           <br/>
             <h2>T E A M I</h2> <br/>
             <table>
@@ -40,7 +40,7 @@
                     <td>PW </td> <td> <input type="password" name="user_pw" class="form-control"></input></td>
                  </tr>
               </table><br/>
-              <input type="submit" value="JoinIn" class="btn btn-default"></input><br/> <br/><br/>
+              <input type="submit" id="submitButton" value="JoinIn" class="btn btn-default"></input><br/> <br/><br/>
               <input type="hidden" name="auth" value="ROLE_MEMBER" />
               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </form>
@@ -99,10 +99,7 @@
          }
       })
    }
-</script>
-
-<!-- 
-<script type="text/javascript">
+   
    $(document).ready(function(){
       $('#id_duplicate_check').on("click", function(e){
     	  var token = $("meta[name='_csrf']").attr("content");
@@ -124,6 +121,7 @@
            	 console.log(user_id);
            	console.log(result);
                if(result == 1){
+            	   $("#id_duplicate_check").attr("value", "N");
                   alert("중복된 아이디입니다.");
                }else if(result == 0){
                   $("#id_duplicate_check").attr("value", "Y");
@@ -132,6 +130,29 @@
             }
          });
       });
+      
+      var joinInForm = $("#joinInForm");
+		
+		$('#submitButton').on("click", function(e){
+			if(!joinInForm.find("input[name='user_name']").val()){
+				alert("닉네임을 입력하세요");
+				return false;
+			}
+			if(!joinInForm.find("input[name='user_id']").val()){
+				alert("아이디를 입력하세요");
+				return false;
+			}
+			if(!joinInForm.find("input[name='user_pw']").val()){
+				alert("비밀번호를 입력하세요");
+				return false;
+			}
+			if($("#id_duplicate_check").val()=="N"){
+				alert("아이디 중복확인을 해주세요");
+				return false;
+			}
+			e.preventDefault();
+			searchForm.submit();
+		});
    });
 
 </script>
