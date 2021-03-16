@@ -31,7 +31,10 @@
                </tr>
                <tr>
                     <td>ID </td> <td> <input id="user_id" name="user_id" class="form-control"></input></td>
-                    <td>  <button id="id_duplicate_check" onclick="fn_idChk();" value="N">중복체크</button></td>
+                    <td>  <input id="checkButton" type="button" value="중복체크" onclick="fn_idChk();"/>
+                    	<input type="hidden" id="id_duplicate_check"  value="N"/>
+                    </td>
+                    <!-- onclick="fn_idChk();" -->
                  </tr>
                  <tr>
                     <td>PW </td> <td> <input type="password" name="user_pw" class="form-control"></input></td>
@@ -63,6 +66,7 @@
 
 </body>
 </html>
+
 <script type="text/javascript">
 
 	console.log("회원가입ㄱㄱㄱㄱ");
@@ -96,17 +100,42 @@
       })
    }
 </script>
-<!--
+
+<!-- 
 <script type="text/javascript">
    $(document).ready(function(){
       $('#id_duplicate_check').on("click", function(e){
-            $("#myModal2").modal("show");
-            return false;
+    	  var token = $("meta[name='_csrf']").attr("content");
+   	   var header = $("meta[name='_csrf_header']").attr("content");   
+   	   
+   	   var user_id = $("#user_id").val();
+   	  
+   	   console.log(user_id);
+         $.ajax({
+            url : "/memberChk",
+            type : "get",
+            dataType : "json",
+            data : {"user_id" : $("#user_id").val()},
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader(header,token);
+            },
+            success : function(result){
+           	 console.log(user_id);
+           	console.log(result);
+               if(result == 1){
+                  alert("중복된 아이디입니다.");
+               }else if(result == 0){
+                  $("#id_duplicate_check").attr("value", "Y");
+                  alert("사용가능한 아이디입니다.");
+               }
+            }
+         });
       });
    });
 
 </script>
--->
+ -->
 <!-- 
 <script type="text/javascript">
 $(document).ready(function(){
