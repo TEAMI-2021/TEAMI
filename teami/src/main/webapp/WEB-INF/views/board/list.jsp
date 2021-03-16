@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-   <%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <%@taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,7 @@
 		<script>
 		$(document).ready(function(){
 			var bno = '<c:out value="${board.bno}"/>';
+			
 			if(${room_code==null}){
 				var room_code = '<c:out value="${board.room_code}"/>';
 			}else{
@@ -105,14 +107,17 @@
 											      	<div class = "uploadResult" id="uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>">
 											      		<ul></ul>
 											      	</div>
+											      	<sec:authentication property="principal.username" var="user_id" />
 									                <c:choose>
-									                	<c:when test="${room_code==null}">
+									                	<c:when test="${room_code==null&&user_id==board.writer}">
 									                		 <a href="/board/modify?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									                		 <a href="/board/remove?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
 									                	</c:when>
 									           			<c:otherwise>
+									           				<c:if test="${user_id==board.writer}">
 									           				<a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									           				<a href="/board/remove?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
+									           				</c:if>
 									           			</c:otherwise>
 									                </c:choose>
 									               
