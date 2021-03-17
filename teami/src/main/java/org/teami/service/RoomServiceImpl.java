@@ -46,5 +46,11 @@ public class RoomServiceImpl implements RoomService{
 		// TODO Auto-generated method stub
 		return mapper.getList(user_id);
 	}
+
+	@Override
+	public void deleteRoom(String user_id, String room_code) {
+		mapper.deleteRoom(user_id, room_code);
+		
+	}
 	
 }

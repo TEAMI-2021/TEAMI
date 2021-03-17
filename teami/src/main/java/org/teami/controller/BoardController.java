@@ -281,6 +281,6 @@ public class BoardController{
 		
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
-	
 
+	
 }

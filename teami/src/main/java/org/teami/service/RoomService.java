@@ -17,4 +17,6 @@ public interface RoomService {
 	public int roomChk(String room_code);
 	
 	public List<RoomVO> getList(String user_id);
+	
+	public void deleteRoom(String user_id, String room_code);
 }

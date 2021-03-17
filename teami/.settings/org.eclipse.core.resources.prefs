@@ -1,13 +1,11 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=9c228cfd35166f4b5e6df30f4daff2d904e83db5
 eclipse.preferences.version=1
-<<<<<<< HEAD
 encoding//src/main/java/org/teami/controller/ReplyController.java=UTF-8
+encoding//src/main/java/org/teami/controller/RoomController.java=UTF-8
 encoding//src/main/java/org/teami/controller/SampleController.java=UTF-8
-encoding//src/main/java/org/teami/service/ReplyServiceImpl.java=UTF-8
-=======
 encoding//src/main/java/org/teami/service/BoardServiceImpl.java=UTF-8
->>>>>>> board_attach
+encoding//src/main/java/org/teami/service/ReplyServiceImpl.java=UTF-8
 encoding//src/test/java/org/teami/mapper/BoardMapperTests.java=UTF-8
-<<<<<<< HEAD
-=======
 encoding//src/test/java/org/teami/mapper/ReplyMapperTests.java=UTF-8
->>>>>>> 9c228cfd35166f4b5e6df30f4daff2d904e83db5

@@ -21,4 +21,6 @@ public interface RoomMapper {
 	public void insertRoomMember(RoomMemberVO roomMember);
 	
 	public int roomChk(String room_code);
+	
+	public void deleteRoom(String user_id, String room_code);
 }

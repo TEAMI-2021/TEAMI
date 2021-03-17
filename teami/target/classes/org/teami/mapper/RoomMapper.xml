@@ -61,4 +61,8 @@
 			);
 	</update>
 	
+		<delete id="deleteRoom">
+		delete from room_member_table where room_code=${room_code} and user_id=${user_id} 
+	</delete>
+	
 </mapper>
