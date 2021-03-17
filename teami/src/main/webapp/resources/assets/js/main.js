@@ -249,7 +249,7 @@
 						event.preventDefault();
 
 					// Toggle.
-						$menu_openers.not($this).removeClass('active');
+						//$menu_openers.not($this).removeClass('active');
 						$this.toggleClass('active');
 
 					// Trigger resize (sidebar lock).
