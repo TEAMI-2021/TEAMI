@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +25,7 @@
 								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>">전체글</a></li>
 								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>&notice=1">공지</a></li>
 								<li><a href="#">파일</a></li>	
-								<li><a href="/room/deleteRoom">방나가기</a></li>						
+								<li><a href="/room/deleteRoom?user_id='<sec:authentication property = "principal.username"/>'&room_code=<c:out value="${room.room_code}"/>">방나가기</a></li>						
 							</ul>
 						</li>
 						</c:forEach>

@@ -22,5 +22,5 @@ public interface RoomMapper {
 	
 	public int roomChk(String room_code);
 	
-	public void deleteRoom(String user_id, String room_code);
+	public void deleteRoom(@Param("user_id") String user_id,@Param("room_code") String room_code);
 }
