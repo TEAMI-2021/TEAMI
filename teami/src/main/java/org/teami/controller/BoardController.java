@@ -3,6 +3,10 @@ package org.teami.controller;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +27,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.teami.domain.AttachFileDTO;
+import org.teami.domain.BoardAttachVO;
 import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
@@ -177,8 +186,9 @@ public class BoardController{
 		BoardReadVO br = new BoardReadVO();
 		br.setBno(bno);
 		br.setRoom_code(room_code);
-		
+		List<BoardAttachVO> attachList = service.getAttachList(br);
 		if (service.remove(br)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 
@@ -283,4 +293,66 @@ public class BoardController{
 	}
 
 	
+	
+	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(BoardReadVO br){
+		return new ResponseEntity<>(service.getAttachList(br), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName){
+		
+		Resource resource = new FileSystemResource("c:\\upload\\"+fileName);
+		log.info("resource: "+resource);
+		if(resource.exists() == false) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		String resourceName = resource.getFilename();
+		//remove UUID
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_")+1);
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			String downloadName=null;
+			
+			if(userAgent.contains("Trident")) {
+				log.info("IE Browser");
+				downloadName=URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", " ");
+			}else if(userAgent.contains("Edge")) {
+				log.info("Edge Browser");
+				downloadName=URLEncoder.encode(resourceOriginalName, "UTF-8");
+				log.info("Edge name: "+downloadName);
+			}else {
+				log.info("Chrome browser");
+				downloadName=new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			
+			headers.add("Content-Disposition", "attachment; filename="+downloadName);
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
+	
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		if(attachList == null || attachList.size()==0) {
+			return;
+		}
+		log.info("delete attach files......................");
+		log.info(attachList);
+		
+		attachList.forEach(attach->{
+			try {
+				Path file = Paths.get("C:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+				Files.deleteIfExists(file);
+				
+			}catch(Exception e){
+				log.error("delete file eroor"+e.getMessage());
+			}
+		});
+	}
 }

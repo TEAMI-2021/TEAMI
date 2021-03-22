@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <meta charset="UTF-8">
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -108,8 +109,7 @@
 			</script>
 
 
-
-<script>
+<script type="text/javascript">
 
 $(document).ready(function(){
 
@@ -249,7 +249,6 @@ $(document).ready(function(){
 				return false;
 			}		
 			formData.append("uploadFile", files[i]);
-			console.log("여기기ㅣㅣ");
 		}
 		
 		$.ajax({
