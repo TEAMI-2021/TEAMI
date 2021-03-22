@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.teami.domain.MemberVO;
 import org.teami.service.MemberService;
@@ -23,9 +26,18 @@ public class MemberController {
 	@PostMapping("/joinIn")
 	public String joinIn(MemberVO member, RedirectAttributes rttr) {
 		
-		service.joinIn(member);
-		
-		return "redirect:/";
+		int result = service.memberChk(member.getUser_id());
+		if(result==0) {
+
+			rttr.addFlashAttribute("result", result);
+			service.joinIn(member);
+		}
+		else if(result==1){
+
+			rttr.addFlashAttribute("result", result);
+			return "redirect:/joinIn";
+		}
+		return "redirect:/customLogin";
 	}
 	
 	@GetMapping("/joinIn")
@@ -57,5 +69,19 @@ public class MemberController {
 	
 	@GetMapping("/customLogout")
 	public void logoutGET() {
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/memberChk", method=RequestMethod.GET)
+	public int memberChk(String user_id) {
+
+		System.out.println(user_id);
+		
+		int result = service.memberChk(user_id);
+
+		System.out.println(result);
+		
+		return result;
+
 	}
 }

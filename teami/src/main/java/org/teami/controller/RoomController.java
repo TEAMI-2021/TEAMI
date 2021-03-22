@@ -31,7 +31,7 @@ public class RoomController {
 		log.info("諛� �벑濡�......"+room);
 		
 		
-		service.register(room);;
+		service.register(room);
 		
 		rttr.addFlashAttribute("result", room.getRoom_code());
 		
