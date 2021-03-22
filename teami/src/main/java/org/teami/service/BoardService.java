@@ -2,6 +2,7 @@ package org.teami.service;
 
 import java.util.List;
 
+import org.teami.domain.BoardAttachVO;
 import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
@@ -27,4 +28,6 @@ public interface BoardService {
 	public int getNoticeTotal(Criteria cri);
 
 	public List<BoardVO> getSearch(Criteria cri);
+	
+	public List<BoardAttachVO> getAttachList(BoardReadVO br);
 }

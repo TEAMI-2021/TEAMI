@@ -14,7 +14,18 @@
 	</delete>
 	
 	<select id="findByBno" resultType="org.teami.domain.BoardAttachVO">
-		select * from tbl_attach where bno = #{bno}
+		select * from tbl_attach where bno = #{bno} AND room_code = #{room_code}
 	</select>
 	
+	<select id="attachList" resultType="org.teami.domain.BoardAttachVO">
+		select * from tbl_attach
+	</select>
+	
+	<delete id="deleteAll">
+		delete from tbl_attach where bno= #{bno} AND room_code = #{room_code}
+	</delete>
+	
+	<select id="getOldFiles" resultType="org.teami.domain.BoardAttachVO">
+		select * from tbl_attach where uploadPath = DATE_FORMAT(now() -1, 'yyyy\mm\dd')
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-   <%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <%@taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -19,15 +20,37 @@
 		<c:forEach items="${list}" var="board">
 		<script>
 		$(document).ready(function(){
+			var bno = '<c:out value="${board.bno}"/>';
+			
+			if(${room_code==null}){
+				var room_code = '<c:out value="${board.room_code}"/>';
+			}else{
+				var room_code = '<c:out value="${room_code}"/>';
+			}
+			
+			
+			$.getJSON("/board/getAttachList", {bno: bno, room_code: room_code}, function(arr){
+				console.log(arr);
+				var str="";
+				
+				$(arr).each(function(i, attach){
+					str += "<li ";
+					str += "data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<span> " + attach.fileName + "</span>";
+					str += "</div></li>";
+				});
+				$("#uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/> ul").html(str);
+			});
 			$("#spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").click(function(){
 				if($("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").is(":visible")){
 					$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideUp(); 
-					}
+				}
 				else{
-						$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideDown(); 
-						} 
-				}); 
-			}); 
+					$("#hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>").slideDown(); 
+				} 
+			});
+			
+		}); 
 		</script>
 		</c:forEach>
 
@@ -69,7 +92,7 @@
 											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
 											    <c:choose>
 											    <c:when test="${room_code == null}">
-											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code }"/>)</div></strong>
+											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code}"/>)</div></strong>
 											    </c:when>
 											    <c:otherwise>
 											    	<strong><div><c:out value="${board.bno}"/></div></strong>
@@ -81,14 +104,20 @@
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
+											      	<div class = "uploadResult" id="uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>">
+											      		<ul></ul>
+											      	</div>
+											      	<sec:authentication property="principal.username" var="user_id" />
 									                <c:choose>
-									                	<c:when test="${room_code==null}">
+									                	<c:when test="${room_code==null&&user_id==board.writer}">
 									                		 <a href="/board/modify?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									                		 <a href="/board/remove?room_code=<c:out value="${board.room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
 									                	</c:when>
 									           			<c:otherwise>
+									           				<c:if test="${user_id==board.writer}">
 									           				<a href="/board/modify?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">수정</a>&nbsp;&nbsp;|
 									           				<a href="/board/remove?room_code=<c:out value="${room_code}"/>&bno=<c:out value="${board.bno}"/>">삭제</a>&nbsp;&nbsp;
+									           				</c:if>
 									           			</c:otherwise>
 									                </c:choose>
 									               
@@ -306,8 +335,13 @@
 					actionForm.find("input[name='pageNum']").val(targetPage);
 					actionForm.submit();
 				});
-
-
+				
+				$(".uploadResult").on("click", "li", function(e){
+					var liObj = $(this);
+					var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+					
+					self.location = "/board/download?fileName="+path
+				});
 		});
 		</script>
 	</body>

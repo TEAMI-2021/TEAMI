@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.teami.domain.BoardAttachVO;
 import org.teami.domain.BoardReadVO;
 import org.teami.domain.BoardVO;
 import org.teami.domain.Criteria;
@@ -58,15 +59,30 @@ public class BoardServiceImpl implements BoardService {
 	public boolean modify(BoardVO board) {
 
 		log.info("modify............" + board);
+		BoardReadVO br = new BoardReadVO();
+		br.setBno(board.getBno());
+		br.setRoom_code(board.getRoom_code());
 		
-		return mapper.update(board) == 1;
+		
+		attachMapper.deleteAll(br);
+		
+		boolean modifyResult = mapper.update(board) == 1;
+		
+		if(modifyResult && board.getAttachList()!=null&&board.getAttachList().size()>0) {
+			board.getAttachList().forEach(attach->{
+				attach.setBno(board.getBno());
+				attach.setRoom_code(board.getRoom_code());
+				attachMapper.insert(attach);
+			});
+		}
+		return modifyResult;
 	}
 
 	@Override
 	public boolean remove(BoardReadVO boardRead) {
 
 		log.info("remove................." + boardRead.getBno());
-		
+		attachMapper.deleteAll(boardRead);
 		return mapper.delete(boardRead) == 1;
 	}
 
@@ -113,6 +129,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getNoticeTotal(Criteria cri) {
 		// TODO Auto-generated method stub
 		return mapper.getNoticeTotalCount(cri);
+	}
+
+	@Override
+	public List<BoardAttachVO> getAttachList(BoardReadVO br) {
+		// TODO Auto-generated method stub
+		return attachMapper.findByBno(br);
 	}
 	
 }
