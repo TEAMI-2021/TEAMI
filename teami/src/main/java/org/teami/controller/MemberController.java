@@ -37,7 +37,7 @@ public class MemberController {
 			rttr.addFlashAttribute("result", result);
 			return "redirect:/joinIn";
 		}
-		return "redirect:/customLogin";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/joinIn")
