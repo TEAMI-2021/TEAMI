@@ -136,5 +136,17 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return attachMapper.findByBno(br);
 	}
+
+	@Override
+	public List<BoardVO> getAttachListWithPaging(Criteria cri) {
+		List<BoardVO> boardList = mapper.getAttachListWithPaging(cri);
+		return boardList;
+	}
+
+	@Override
+	public int getAttachTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getAttachTotalCount(cri);
+	}
 	
 }

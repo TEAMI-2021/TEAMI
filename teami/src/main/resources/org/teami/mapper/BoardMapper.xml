@@ -64,6 +64,13 @@
 			LIMIT #{skip}, #{amount}
 		]]>
 	</select>
+	<select id="getAttachListWithPaging" resultType="org.teami.domain.BoardVO">
+		<![CDATA[
+			select board_${room_code}.bno,title,content,writer,notice,regdate,updatedate 
+			FROM board_${room_code} Inner join tbl_attach 
+			on board_${room_code}.bno=tbl_attach.bno and tbl_attach.room_code=${room_code} ORDER BY bno DESC;
+		]]>
+	</select>
 	
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[
@@ -74,6 +81,14 @@
 	<select id="getNoticeTotalCount" resultType="int">
 		<![CDATA[
 			select count(*) FROM board_${room_code} WHERE bno > 0 AND notice='1'
+		]]>
+	</select>
+	
+	<select id="getAttachTotalCount" resultType="int">
+		<![CDATA[
+			select count(*) FROM board_${room_code} 
+			Inner join tbl_attach on board_${room_code}.bno=tbl_attach.bno 
+			and tbl_attach.room_code=${room_code};
 		]]>
 	</select>
 	

@@ -26,9 +26,13 @@ public interface BoardMapper {
 	
 	public List<BoardVO> getNoticeListWithPaging(Criteria cri);
 	
+	public List<BoardVO> getAttachListWithPaging(Criteria cri);
+	
 	public int getTotalCount(Criteria cri);
 	
 	public int getNoticeTotalCount(Criteria cri);
+	
+	public int getAttachTotalCount(Criteria cri);
 	
 	// 검색
 	public List<BoardVO> getSearch(Criteria cri);

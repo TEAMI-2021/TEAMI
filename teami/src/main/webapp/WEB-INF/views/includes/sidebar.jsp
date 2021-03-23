@@ -24,7 +24,7 @@
 							<ul>
 								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>">전체글</a></li>
 								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>&notice=1">공지</a></li>
-								<li><a href="#">파일</a></li>	
+								<li><a href="/board/list?room_code=<c:out value="${room.room_code}"/>&attach=1">파일</a></li>	
 								<li><a href="/room/deleteRoom?user_id='<sec:authentication property = "principal.username"/>'&room_code=<c:out value="${room.room_code}"/>">방나가기</a></li>						
 							</ul>
 						</li>
