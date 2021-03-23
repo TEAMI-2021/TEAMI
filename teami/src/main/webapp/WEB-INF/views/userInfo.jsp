@@ -33,12 +33,12 @@
 		        </table><br/>
 		        <input type="submit" value="비밀번호 변경하기" class="btn btn-default"></input><br/> <br/><br/>
 		        <a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'" class="button">회원탈퇴</a>
-		        <input type="button" value="회원탈퇴" name="deleteUser"></input></br>
 		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    </form>
 		</div>
 		</div>
-
+		
 </body>
+
 </html>
