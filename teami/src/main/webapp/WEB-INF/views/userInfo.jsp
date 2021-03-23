@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page session="false" %>
 
 <html>
@@ -31,7 +32,7 @@
 			        
 		        </table><br/>
 		        <input type="submit" value="비밀번호 변경하기" class="btn btn-default"></input><br/> <br/><br/>
-		        <button><a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'">회원탈퇴</a></button>
+		        <a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'" class="button">회원탈퇴</a>
 		        <input type="button" value="회원탈퇴" name="deleteUser"></input></br>
 		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

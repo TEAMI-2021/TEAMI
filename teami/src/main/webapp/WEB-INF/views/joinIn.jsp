@@ -151,7 +151,7 @@
 				return false;
 			}
 			e.preventDefault();
-			searchForm.submit();
+            joinInForm.submit();
 		});
    });
 
