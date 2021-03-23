@@ -72,8 +72,8 @@ public class BoardController{
 	}
 	
 	@GetMapping("/list")
-	public void list(@RequestParam(value="room_code", required=false) String room_code,@RequestParam(value="notice", required=false) String notice, Criteria cri, Principal principal, Model model) {		
-		if(room_code == null && notice == null) {
+	public <Char> void list(@RequestParam(value="room_code", required=false) String room_code,@RequestParam(value="notice", required=false) String notice,@RequestParam(value="attach", required=false) String attach, Criteria cri, Principal principal, Model model) {		
+		if(room_code == null && notice == null && attach==null) {
 			List<RoomVO> roomList = roomService.getList(principal.getName());
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
 			List<BoardVO> boardList2 = new ArrayList<BoardVO>();
@@ -106,7 +106,7 @@ public class BoardController{
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 			model.addAttribute("cri", cri);
 		}
-		else if(notice==null){
+		else if(notice==null&&attach==null){
 			log.info("list: " + cri);
 			model.addAttribute("list", service.getListWithPaging(cri));
 			model.addAttribute("room_code", room_code);
@@ -116,7 +116,14 @@ public class BoardController{
 			log.info("total: " + total);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		}
-		else{
+		else if(notice==null) {
+			model.addAttribute("list", service.getAttachListWithPaging(cri));
+			model.addAttribute("room_code", room_code);
+			
+			int attachTotal = service.getAttachTotal(cri);
+			
+			model.addAttribute("pageMaker", new PageDTO(cri, attachTotal));
+		}else{
 			model.addAttribute("list", service.getNoticeListWithPaging(cri));
 			model.addAttribute("room_code", room_code);
 			
@@ -124,6 +131,8 @@ public class BoardController{
 			
 			model.addAttribute("pageMaker", new PageDTO(cri, noticeTotal));
 		}
+		
+
 		model.addAttribute("roomList", roomService.getList(principal.getName()));
 	}
 	
