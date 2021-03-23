@@ -4,11 +4,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.teami.domain.Criteria;
 import org.teami.domain.MemberVO;
 import org.teami.service.MemberService;
 
@@ -83,5 +86,21 @@ public class MemberController {
 		
 		return result;
 
+	}
+	
+	@GetMapping("/userInfo")
+	public void userInfo() {
+		
+	}
+	
+	@GetMapping("/deleteUser")
+	public String deleteUser(@RequestParam("user_id") String user_id) {
+		
+		log.info("user_id: " + user_id);
+
+		service.deleteUser(user_id);
+		
+		return "redirect:/login";
+		
 	}
 }

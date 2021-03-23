@@ -75,7 +75,7 @@ public class RoomController {
 	
 	
 	@GetMapping("/deleteRoom")
-	public String deleteRoom(@RequestParam("user_id") String user_id, @RequestParam("room_code") String room_code, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String deleteRoom(@RequestParam("user_id") String user_id, @RequestParam("room_code") String room_code) {
 		
 		log.info("deleteRoom: " + room_code + "user_id: " + user_id);
 

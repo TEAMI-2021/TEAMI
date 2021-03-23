@@ -8,6 +8,8 @@ public interface MemberService {
 	
 	public MemberVO get(String user_id);
 	
-	//Sting인가 int인가
+	//Sting�씤媛� int�씤媛�
 	public int memberChk(String user_id);
+	
+	public void deleteUser(String user_id);
 }
