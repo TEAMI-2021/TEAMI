@@ -91,7 +91,14 @@
 											    <td>
 											    <div id="spreadBtn<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="btn01">
 											    <c:choose>
-											    <c:when test="${room_code == null}">
+											    
+											    <c:when test="${room_code == null}"><h4><script>
+											    	var notice='<c:out value="${board.notice}"/>';
+											    	if (notice=='1'){
+												    	document.write('공지사항');
+										    	}else{
+										    		document.write('');
+										    	}</script></h4>
 											    	<strong><div><c:out value="${board.bno}"/>(방코드:<c:out value="${board.room_code}"/>)</div></strong>
 											    </c:when>
 											    <c:otherwise>
@@ -100,13 +107,14 @@
 											    </c:choose>
 											    
 											    <div><c:out value="${board.title}"/></div>
+											    <div class = "uploadResult" id="uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>">
+											      		<ul></ul>
+											      	</div>
 											    </div>
 											     <div id="hiddenList<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>" class="example01" style="display: none;">
 											      <c:out value="${board.content}"/>
 											      <p style="text-align:right;">
-											      	<div class = "uploadResult" id="uploadResult<c:out value="${board.room_code}"/>_<c:out value="${board.bno}"/>">
-											      		<ul></ul>
-											      	</div>
+											      	
 											      	<sec:authentication property="principal.username" var="user_id" />
 									                <c:choose>
 									                	<c:when test="${room_code==null&&user_id==board.writer}">
