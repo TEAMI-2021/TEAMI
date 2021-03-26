@@ -2,7 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page session="false" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix="sec" %>
 
 <html>
 <head>
@@ -18,10 +20,10 @@
 				<table>
 					
 				        <tr>
-				            <td>NAME</td><td><c:out value=""/></td>
+				            <td>NAME</td><td><sec:authentication property = "principal.username"/></td>
 				        </tr>
 				        <tr>
-				            <td>ID</td><td><c:out value=""/></td>
+				            <td>ID</td><td><sec:authentication property = "principal.member.user_name"/></td>
 				         
 				        </tr>
 				    
@@ -31,13 +33,13 @@
 			        
 		        </table><br/>
 		        <input type="submit" value="비밀번호 변경하기" class="btn btn-default"></input><br/> <br/><br/>
-		        <button><a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'">회원탈퇴</a></button>
-		        <input type="button" value="회원탈퇴" name="deleteUser"></input></br>
+		        <a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'" class="button">회원탈퇴</a>
 		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    </form>
 		</div>
 		</div>
-
+		
 </body>
+
 </html>
