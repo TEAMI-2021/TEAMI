@@ -151,12 +151,14 @@
 				return false;
 			}
 			e.preventDefault();
-			joinInForm.submit();
+
+            joinInForm.submit();
+
 		});
    });
 
 </script>
- -->
+
 <!-- 
 <script type="text/javascript">
 $(document).ready(function(){

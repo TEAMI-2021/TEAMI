@@ -39,5 +39,9 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.memberChk(user_id);
 	}
 	
-	
+	@Override
+	public void deleteUser(String user_id) {
+		mapper.deleteUser(user_id);
+		
+	}
 }
