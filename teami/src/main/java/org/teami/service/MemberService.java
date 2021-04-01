@@ -12,4 +12,6 @@ public interface MemberService {
 	public int memberChk(String user_id);
 	
 	public void deleteUser(String user_id);
+
+	public void updatePW(MemberVO member);
 }

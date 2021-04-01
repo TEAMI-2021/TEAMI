@@ -44,4 +44,11 @@ public class MemberServiceImpl implements MemberService{
 		mapper.deleteUser(user_id);
 		
 	}
+
+	@Override
+	public void updatePW(MemberVO member) {
+		log.info("updatePW.......");
+		member.setUser_pw(pwencoder.encode(member.getUser_pw()));
+		mapper.updatePW(member);
+	}
 }

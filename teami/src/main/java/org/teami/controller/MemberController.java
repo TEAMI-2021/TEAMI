@@ -103,4 +103,14 @@ public class MemberController {
 		return "redirect:/login";
 		
 	}
+	
+	@PostMapping("/updatePW")
+	public String updatePW(MemberVO member, RedirectAttributes rttr) {
+		
+		log.info("updatePW: " + member.getUser_pw());
+
+		service.updatePW(member);
+		
+		return "redirect:/board/list";
+	}
 }

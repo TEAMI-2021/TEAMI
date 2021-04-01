@@ -45,4 +45,8 @@
 	<delete id="deleteUser">
 		delete from user_table where user_id=${user_id}
 	</delete>
+	
+	<update id="updatePW">
+		update user_table set user_pw=#{user_pw} where user_id=#{user_id}
+	</update>
 </mapper>
