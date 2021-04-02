@@ -13,7 +13,9 @@ public interface MemberMapper {
 	
 	public int memberChk(String user_id);
 	
+	public int pwChk(String user_pw);
+	
 	public void deleteUser(@Param("user_id") String user_id);
 	
-	public void updatePW(MemberVO member);
-}
+    public void updatePW(MemberVO member);
+    }

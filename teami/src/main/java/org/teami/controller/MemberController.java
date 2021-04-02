@@ -88,6 +88,20 @@ public class MemberController {
 
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/pwChk", method=RequestMethod.GET)
+	public int pwChk(String user_pw) {
+
+		System.out.println(user_pw);
+		
+		int result = service.pwChk(user_pw);
+
+		System.out.println(result);
+		
+		return result;
+
+	}
+	
 	@GetMapping("/userInfo")
 	public void userInfo() {
 		
@@ -105,12 +119,10 @@ public class MemberController {
 	}
 	
 	@PostMapping("/updatePW")
-	public String updatePW(MemberVO member, RedirectAttributes rttr) {
-		
-		log.info("updatePW: " + member.getUser_pw());
-
-		service.updatePW(member);
-		
+    public String updatePW(MemberVO member, RedirectAttributes rttr) {		
+        log.info("updatePW: " + member.getUser_pw());
+		rttr.addFlashAttribute("user_pw", member.getUser_pw());
+        service.updatePW(member);		
 		return "redirect:/board/list";
 	}
 }

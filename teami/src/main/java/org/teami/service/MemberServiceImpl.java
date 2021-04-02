@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.teami.domain.MemberVO;
 import org.teami.mapper.MemberMapper;
 
+import jdk.internal.org.jline.utils.Log;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -39,6 +40,8 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.memberChk(user_id);
 	}
 	
+	
+	
 	@Override
 	public void deleteUser(String user_id) {
 		mapper.deleteUser(user_id);
@@ -46,9 +49,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updatePW(MemberVO member) {
+    public void updatePW(MemberVO member) {
 		log.info("updatePW.......");
-		member.setUser_pw(pwencoder.encode(member.getUser_pw()));
-		mapper.updatePW(member);
+        member.setUser_pw(pwencoder.encode(member.getUser_pw()));	
+        mapper.updatePW(member);
+        }
+
+	@Override
+	public int pwChk(String user_pw) {
+		return mapper.pwChk(pwencoder.encode(user_pw));
 	}
 }

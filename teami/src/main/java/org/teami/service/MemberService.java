@@ -11,7 +11,9 @@ public interface MemberService {
 	//Sting�씤媛� int�씤媛�
 	public int memberChk(String user_id);
 	
+	public int pwChk(String user_pw);
+	
 	public void deleteUser(String user_id);
 
-	public void updatePW(MemberVO member);
-}
+    public void updatePW(MemberVO member);
+    }

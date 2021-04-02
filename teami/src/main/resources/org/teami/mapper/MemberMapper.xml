@@ -42,6 +42,10 @@
 		SELECT count(*) FROM user_table WHERE user_id=#{user_id}
 	</select>
 	
+	<select id="pwChk" resultType="int">
+		SELECT count(*) FROM user_table WHERE user_pw=#{user_pw}
+	</select>
+	
 	<delete id="deleteUser">
 		delete from user_table where user_id=${user_id}
 	</delete>
