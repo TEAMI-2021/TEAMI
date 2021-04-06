@@ -2,6 +2,7 @@ package org.teami.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.teami.domain.MemberVO;
 import org.teami.mapper.MemberMapper;
 
@@ -50,10 +51,10 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
     public void updatePW(MemberVO member) {
-		log.info("updatePW.......");
-        member.setUser_pw(pwencoder.encode(member.getUser_pw()));	
+		log.info("updatePW.......");	
+        member.setUser_pw(pwencoder.encode(member.getUser_pw()));
         mapper.updatePW(member);
-        }
+    }
 
 	@Override
 	public int pwChk(String user_pw) {

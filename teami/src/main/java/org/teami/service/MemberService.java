@@ -1,5 +1,6 @@
 package org.teami.service;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.teami.domain.MemberVO;
 
 public interface MemberService {

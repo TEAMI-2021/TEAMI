@@ -1,6 +1,7 @@
 package org.teami.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.teami.domain.MemberVO;
 
 public interface MemberMapper {

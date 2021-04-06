@@ -19,6 +19,7 @@
 		<div class="centered">
 		<div class="centered2">
 		    <br/>
+
 				<h2>U S E R  I N F O</h2> <br/>
 				<table>
 					
@@ -31,23 +32,22 @@
 				        </tr>
 				    
 			        <tr>
-			        	<td>PW </td> <td> <input type="password" name="user_pw" id="user_pw" class="form-control"></input>
+			        	<td>PW </td> <td> <input type="password" name="user_pw1" id="user_pw1" class="form-control"></input>
 			        	<button type="button" id="checkpw" name="checkpw" id="checkpw" class="btn btn-default">확인</button> 
 			        	</td>             
 			        </tr>
+					
 			         <tr> 
 			        	<td>NEW PW </td>
-			        	<form role="form" action="/updatePw" method="post" id="updatePw">  
-			        	<td><input type="password" name="user_pw" id="user_pw" class="form-control"></input>
+			        	<td><form role="form" id="updateFrom" name="updateFrom" action="/updatePw" method="post">
+			        	<input type="password" name="user_pw" id="user_pw" class="form-control" />
 			        	<input type="hidden" name="user_id" value='<sec:authentication property = "principal.member.user_name"/>' />
 			        	<input type="hidden" name="user_name" value='<sec:authentication property = "principal.username"/>' />
-			        			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			        			        		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
-			        	<button type="submit" value="changePw" id="changePw" name="changePw" class="btn btn-default">변경
-			        	</button>
-			        	</td></form>
-			        	
-		
+			        	<input type="hidden" name="auth" value="ROLE_MEMBER" />
+		        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			        	<input type="button" value="변경" id="updatePw" name="updatePw" class="btn btn-default" />
+						</form>
+			        	</td>
 			        </tr>
 			        
 		        </table><br/>
@@ -55,6 +55,7 @@
 		        <a href="/deleteUser?user_id='<sec:authentication property = "principal.username"/>'" class="button">회원탈퇴</a>
 		        <input type="hidden" name="auth" value="ROLE_MEMBER" />
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		        
 		</div>
 		</div>
 		
@@ -70,11 +71,12 @@ $(document).ready(function(){
     	var token = $("meta[name='_csrf']").attr("content");
  	   var header = $("meta[name='_csrf_header']").attr("content");   
  	   
- 	   var user_pw = $("#user_pw").val();
+ 	   var user_pw = $("#user_pw1").val();
+ 	  var user_id = $("#user_id").val();
  	   
  	  $.ajax({
           url : "/pwChk",
-          type : "get",
+          type : "post",
           dataType : "json",
           data : {"user_pw" :user_pw},
           beforeSend : function(xhr)
@@ -94,26 +96,14 @@ $(document).ready(function(){
  	         }
  	   })
     });
-    var updatePw = $("#updatePw");
-    $('#changePw').on("click", function(e){
-    	var token = $("meta[name='_csrf']").attr("content");
-  	   var header = $("meta[name='_csrf_header']").attr("content");   
-    	  updatePw.submit();
-		$.ajax({
-			url: '/updatePW',
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType: 'text',
-			beforeSend : function(xhr){
-				xhr.setRequestHeader(header, token);
-			},
-			success: function(result){
-				console.log(result);
-				//showUploadResult(result);	//업로드 결과 처리 함수
-			}
-		});
-
+    var updateFrom = $("#updateFrom");
+    $('#updatePw').on("click", function(e){
+		if(!updateFrom.find("input[name='user_pw']").val()){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		e.preventDefault();
+		updateFrom.submit();
 
     	
     });
